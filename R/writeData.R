@@ -6,12 +6,8 @@ setMethod(
   signature = "data.frame",
   definition = function(data){
     
-    theseLines <- apply(data, 1, paste, collapse="\t")
-    
     fileLoc <- file.path(tempdir(), "data.txt")
-    fileConn <- file(fileLoc)
-    writeLines(theseLines)
-    close(fileConn)
+    write.table(data, file=fileLoc, sep="\t", quote=F, row.names=F, col.names=F)
     
     return(fileLoc)
   }

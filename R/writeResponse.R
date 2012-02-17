@@ -7,9 +7,7 @@ setMethod(
   definition = function(response){
     
     fileLoc <- file.path(tempdir(), "response.txt")
-    fileConn <- file(fileLoc)
-    writeLines(response)
-    close(fileConn)
+    write.table(response, file=fileLoc, sep="\t", quote=F, row.names=F, col.names=F)
     
     return(fileLoc)
   }

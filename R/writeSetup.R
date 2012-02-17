@@ -30,20 +30,28 @@ setMethod(
                       pmax = 15,
                       innerAnneal1 = 0.6,
                       innerAnneal2 = 0.8,
-                      innerAnneal3 = 1.0,
+                      innerAnneal3 = 1,
                       outerAnneal = 0.4,
-                      priormeanp = 5.0)
+                      priormeanp = 5)
     
-    theseSpecs <- names(setupSpec)
-    
-    ## CHECK THE OVERLAP - JUST THROW A WARNING AND KEEP GOING
-    oops <- setdiff(theseSpecs, names(setupBase))
-    if(length(blah) > 0)
-      warning(paste("List members provided, but not used in setup script:  ", paste(oops, collapse=", "), sep=""))
-    
-    ## UPDATE THE DEFAULTS
-    setupFinal <- setupBase
-    lapply(theseSpecs, function(x){ setupFinal[[x]] <- setupSpec[[x]] })
+    if( length(setupSpec) != 0L ){
+
+      theseSpecs <- names(setupSpec)
+      
+      ## CHECK THE OVERLAP - JUST THROW A WARNING AND KEEP GOING
+      oops <- setdiff(theseSpecs, names(setupBase))
+      if(length(oops) > 0)
+        warning(paste("List members provided, but not used in setup script:  ", paste(oops, collapse=", "), sep=""))
+      
+      ## UPDATE THE DEFAULTS
+      setupFinal <- setupBase
+      for(this in theseSpecs){
+        setupFinal[[this]] <- setupSpec[[this]]
+      }
+      
+    } else{
+      setupFinal <- setupBase
+    }
     
     ## WRITE OUT SETUP FILE
     if( length(names(setupFinal)) != length(unlist(setupFinal)) ){
@@ -53,9 +61,7 @@ setMethod(
     thisOut <- paste(names(setupFinal), " = ", unlist(setupFinal), sep="")
     
     fileLoc <- file.path(tempdir(), "setup.txt")
-    fileConn <- file(fileLoc)
-    writeLines(thisOut)
-    close(fileConn)
+    write.table(thisOut, file=fileLoc, sep="\t", quote=F, row.names=F, col.names=F)
     
     return(fileLoc)
   }

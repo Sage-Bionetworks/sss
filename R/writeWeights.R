@@ -7,9 +7,7 @@ setMethod(
   definition = function(weights){
     
     fileLoc <- file.path(tempdir(), "weights.txt")
-    fileConn <- file(fileLoc)
-    writeLines(weights)
-    close(fileConn)
+    write.table(weights, file=fileLoc, sep="\t", quote=F, row.names=F, col.names=F)
     
     return(fileLoc)
   }

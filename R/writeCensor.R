@@ -7,9 +7,7 @@ setMethod(
   definition = function(censor){
     
     fileLoc <- file.path(tempdir(), "censor.txt")
-    fileConn <- file(fileLoc)
-    writeLines(censor)
-    close(fileConn)
+    write.table(censor, file=fileLoc, sep="\t", quote=F, row.names=F, col.names=F)
     
     return(fileLoc)
   }
