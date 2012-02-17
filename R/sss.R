@@ -56,8 +56,8 @@ setMethod(
   signature = "sssSurvivalModel",
   definition = function(object){
     
-    setupSpec[["CENSORFILE"]] <- writeCensor(censor)
-    setupSpec[["RESPONSEFILE"]] <- writeResponse(timeToEvent)
+    object@setupSpec[["CENSORFILE"]] <- writeCensor(object@censor)
+    object@setupSpec[["RESPONSEFILE"]] <- writeResponse(object@timeToEvent)
     object
     
   }
@@ -100,6 +100,7 @@ setMethod(
     #    pathToExec <- file.path(path.package("sss"), "exec")
     pathToExec <- file.path("/Users/brian/workspace/gitRepos/sss/inst", "exec")
     system(paste(file.path(pathToExec, "modelsearch"), setupLoc, sep=" "))
+    system(paste(file.path(pathToExec, "modelsummary"), setupLoc, sep=" "))
   }
 )
 
@@ -110,6 +111,7 @@ setMethod(
     #    pathToExec <- file.path(path.package("sss"), "exec")
     pathToExec <- file.path("/Users/brian/workspace/gitRepos/sss/inst", "exec")
     system(paste(file.path(pathToExec, "modelsearch.exe"), setupLoc, sep=" "))
+    system(paste(file.path(pathToExec, "modelsummary.exe"), setupLoc, sep=" "))
   }
 )
 
@@ -120,6 +122,7 @@ setMethod(
     #    pathToExec <- file.path(path.package("sss"), "exec")
     pathToExec <- file.path("/Users/brian/workspace/gitRepos/sss/inst", "exec")
     system(paste(file.path(pathToExec, "modelsearch64"), setupLoc, sep=" "))
+    system(paste(file.path(pathToExec, "modelsummary64"), setupLoc, sep=" "))
   }
 )
 setMethod(
@@ -129,6 +132,7 @@ setMethod(
     #    pathToExec <- file.path(path.package("sss"), "exec")
     pathToExec <- file.path("/Users/brian/workspace/gitRepos/sss/inst", "exec")
     system(paste(file.path(pathToExec, "modelsearch32"), setupLoc, sep=" "))
+    system(paste(file.path(pathToExec, "modelsummary32"), setupLoc, sep=" "))
   }
 )
 
