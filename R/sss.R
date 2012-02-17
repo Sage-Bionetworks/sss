@@ -3,84 +3,74 @@
 
 setMethod(
   f = "sss",
-  signature = c("character", "data.frame", "numeric", "numeric", "numeric", "numeric", "list"),
-  definition = function(modtype, data, response, timeToEvent, censor, weights, setupSpec){
+  signature = "sssModel",
+  definition = function(object){
     
-    ## INITIATE SETUP SPEC IF NOT ALREADY
-    if( !exists("setupSpec") ){
-      setupSpec <- list()
-    }
-    
-    ## DO modtype SPECIFIC CHECKS AND FILE WRITING
-    if( !(tolower(modtype) %in% c("binary", "linear", "survival")) ){
-      stop("modtype must be one of: binary, linear, or survival")
+    ## FILL IN SETUP INFORMATION
+    object@setupSpec[["modtype"]] <- object@modtype
+    object@setupSpec[["NOBSERVATIONS"]] <- nrows(object@data)
+    object@setupSpec[["NVARIABLES"]] <- ncols(object@data)
+    object@setupSpec[["DATAFILE"]] <- writeData(object@data)
+    if( !is.null(object@weights) ){
+      object@setupSpec[["WEIGHTSFILE"]] <- writeWeights(object@weights)
     } else{
-      
-      if( tolower(modtype)=="survival"){ ## SURVIVAL DATA
-        if( nrows(data) != length(censor) ){
-          stop("number of rows in data does not match number of values in censor")
-        }
-        if( nrows(data) != length(timeToEvent) ){
-          stop("number of rows in data does not match number of values in timeToEvent")
-        }
-        if( !all(sort(unique(censor)) == c(0,1)) ){
-          stop("censor must only contain values of 0 (censor) and 1 (event)")
-        }
-        ## WRITE OUT THE APPROPRIATE FILES
-        setupSpec[["CENSORFILE"]] <- writeCensor(censor)
-        setupSpec[["RESPONSEFILE"]] <- writeResponse(timeToEvent)
-        
-      } else{ ## LINEAR OR BINARY RESPONSE DATA
-        
-        if( nrows(data) != length(response) ){
-          stop("number of rows in data does not match number of values in response")
-        }
-        if( modtype == "binary" & !all(sort(unique(censor)) == c(0,1)) ){
-          stop("response for binary must only contain values of 0 and 1")
-        }
-        
-        ## WRITE OUT APPROPRIATE FILE
-        setupSpec[["RESPONSEFILE"]] <- writeResponse(response)
-      }
-      
+      object@setupSpec[["WEIGHTSFILE"]] <- writeWeights(rep(1, nrows(object@data)))
     }
     
-    ## FILL IN SOME MORE OF THE SETUP FILE
-    setupSpec[["NOBSERVATIONS"]] <- nrows(data)
-    setupSpec[["NVARIABLES"]] <- ncols(data)
-    setupSpec[["modtype"]] <- switch(modtype,
-                                     linear   = 1,
-                                     binary   = 2,
-                                     survival = 3)
-    
-    ## WRITE DATA FILE
-    dataLoc <- writeData(data)
-    setupSpec[["DATAFILE"]] <- dataLoc
-        
-    ## WRITE WEIGHTS FILE, IF NECESSARY
-    if(weights != NULL){
-      
-      if( nrows(data) != length(weights) ){
-        stop("number of rows in data does not match number of values in weights")
-      }
-      if( !all(sort(unique(weights)) == c(0,1)) ){
-        stop("weights must only contain values of 0 and 1")
-      }
-      setupSpec[["WEIGHTSFILE"]] <- writeWeights(weights)
-      
-    } else{
-      setupSpec[["WEIGHTSFILE"]] <- writeWeights(rep(1, nrows(data)))
-    }
+    ## PASS ON TO DISPATCH METHOD DIFFERING BY MODEL TYPE TO FILL IN THE REST OF THE SETUP PARAMS
+    object <- .sssDis(object)
     
     ## WRITE SETUP FILE
-    setupLoc <- writeSetup(setupSpec)
+    setupLoc <- writeSetup(object@setupSpec)
     
+    ## RUN SSS (ALL THAT IS NEEDED IS THE SETUP FILE)
+    .sssWorkhorse(setupLoc)
     
+  }
+)
+
+
+### SSS MODEL DISPATCH
+setMethod(
+  f = ".sssDis",
+  signature = "sssLinearModel",
+  definition = function(object){
     
+    object@setupSpec[["RESPONSEFILE"]] <- writeResponse(object@response)
     
-    #####
-    ## SECTION TO DEFINE WHICH BINARY TO RUN
-    #####
+  }
+)
+setMethod(
+  f = ".sssDis",
+  signature = "sssBinaryModel",
+  definition = function(object){
+    
+    object@setupSpec[["RESPONSEFILE"]] <- writeResponse(object@response)
+    
+  }
+)
+setMethod(
+  f = ".sssDis",
+  signature = "sssSurvivalModel",
+  definition = function(object){
+    
+    setupSpec[["CENSORFILE"]] <- writeCensor(censor)
+    setupSpec[["RESPONSEFILE"]] <- writeResponse(timeToEvent)
+    
+  }
+)
+
+
+
+#####
+## THIS FUNCTION IS THE REAL WORKHOSE
+#####
+setMethod(
+  f = ".sssWorkhorse",
+  signature = "character",
+  definition = function(setupLoc){
+    
+    ## DEFINE WHICH BINARY TO RUN
     ## myPlat IS ONE OF source, mac.binary.leopard, win.binary
     myPlat <- .Platform$pkgType
     ## FOR DIFFERENTIATION BETWEEN 32 AND 64 BIT OS
@@ -89,26 +79,23 @@ setMethod(
     
     switch(mySwitch,
            mac.binary.leopardx86_64 = .mac64sss(setupLoc),
-           mac.binary.leopardi386   = .mac32sss(setupLoc),
+#           mac.binary.leopardi386   = .mac32sss(setupLoc), ## DOES THIS EXIST?
            win.binary               = .winsss(setupLoc),
            sourcex86_64             = .source64sss(setupLoc),
            sourcei386               = .source32sss(setupLoc))
   }
 )
 
+
+#####
+## THESE METHODS ARE FOR PLATFORM SPECIFIC DISPATCH
+#####
 setMethod(
   f = ".mac64sss",
   signature = c("character"),
   definition = function(setupLoc){
-    
-  }
-)
-
-setMethod(
-  f = ".mac32sss",
-  signature = c("character"),
-  definition = function(setupLoc){
-    
+    pathToExec <- file.path(path.package("sss"), "exec")
+    system(paste(file.path(pathToExec, "modelsearch"), setupLoc, sep=" "))
   }
 )
 
@@ -116,7 +103,8 @@ setMethod(
   f = ".winsss",
   signature = c("character"),
   definition = function(setupLoc){
-    
+    pathToExec <- file.path(path.package("sss"), "exec")
+    system(paste(file.path(pathToExec, "modelsearch.exe"), setupLoc, sep=" "))
   }
 )
 
@@ -124,15 +112,16 @@ setMethod(
   f = ".source64sss",
   signature = c("character"),
   definition = function(setupLoc){
-    
+    pathToExec <- file.path(path.package("sss"), "exec")
+    system(paste(file.path(pathToExec, "modelsearch64"), setupLoc, sep=" "))
   }
 )
-
 setMethod(
   f = ".source32sss",
   signature = c("character"),
   definition = function(setupLoc){
-    
+    pathToExec <- file.path(path.package("sss"), "exec")
+    system(paste(file.path(pathToExec, "modelsearch32"), setupLoc, sep=" "))
   }
 )
 
