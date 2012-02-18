@@ -20,12 +20,16 @@ setMethod(
     ## PASS ON TO DISPATCH METHOD DIFFERING BY MODEL TYPE TO FILL IN THE REST OF THE SETUP PARAMS
     object <- .sssDis(object)
     
-    ## WRITE SETUP FILE
+    ## UPDATE DEFAULT SETUP WITH USER SPECIFIED VALUES - AND WRITE OUT THE FILE
+    object@setupSpec <- updateSetup(object@setupSpec)
     setupLoc <- writeSetup(object@setupSpec)
     
-    ## RUN SSS (ALL THAT IS NEEDED IS THE SETUP FILE)
+    ## RUN SSS (ALL THAT IS NEEDED IS THE LOCATION OF THE SETUP FILE)
     .sssWorkhorse(setupLoc)
     
+    ## NOW THAT SSS HAS BEEN CALLED, RETURN SUMMARY OF MODEL RUN
+    outSum <- readSummary(object)
+    return(outSum)
   }
 )
 

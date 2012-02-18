@@ -58,8 +58,14 @@ setGeneric(
 
 
 #####
-## METHODS FOR WRITING OUT FILES
+## METHODS FOR WRITING OUT AND READING IN FILES
 #####
+setGeneric(
+  name = "updateSetup",
+  def = function(setupSpec){
+    standardGeneric("updateSetup")
+  }
+)
 setGeneric(
   name = "writeSetup",
   def = function(setupSpec){
@@ -88,6 +94,13 @@ setGeneric(
   name = "writeCensor",
   def = function(censor){
     standardGeneric("writeCensor")
+  }
+)
+
+setGeneric(
+  name = "readSummary",
+  def = function(object){
+    standardGeneric("readSummary")
   }
 )
 

@@ -3,11 +3,12 @@
 ## AUTHOR: BRIAN M. BOT
 #####
 
-## INVISIBLE CLASS THAT WILL BE EXTENDED BY EACH MODEL TYPE
+## VIRTUAL CLASS THAT WILL BE EXTENDED BY EACH MODEL TYPE
 setClass(
   Class = "sssModel",
   
   representation = representation(
+    "VIRTUAL",
     modtype = "numeric",
     data = "data.frame",
     weights = "numeric",
@@ -140,5 +141,71 @@ setValidity(
     ## IF PASS ABOVE CHECKS THEN RETURN TRUE
     return(TRUE)
   }
+)
+
+
+#####
+## MODEL RESULT CLASSES
+#####
+
+## VIRTUAL CLASS THAT WILL BE EXTENDED BY EACH MODEL TYPE
+setClass(
+  Class = "sssResult",
+  
+  representation = representation(
+    "VIRTUAL",
+    p = "list",
+    score = "list",
+    indices = "list"),
+  
+  prototype = prototype(
+    p = list(),
+    score = list(),
+    indices = list())
+)
+
+setClass(
+  Class = "sssLinearResult",
+  contains = "sssResult",
+  
+  representation = representation(
+    pmean = "list",
+    pvar = "list",
+    residsd = "list",
+    postdf = "list"),
+  
+  prototype = prototype(
+    pmean = list(),
+    pvar = list(),
+    residsd = list(),
+    postdf = list())
+)
+
+setClass(
+  Class = "sssBinaryResult",
+  contains = "sssResult",
+  
+  representation = representation(
+    pmode = "list",
+    pvar = "list"),
+  
+  prototype = prototype(
+    pmode = list(),
+    pvar = list())
+)
+
+setClass(
+  Class = "sssSurvivalResult",
+  contains = "sssResult",
+  
+  representation = representation(
+    pmeanalpha = "list",
+    pmode = "list",
+    pvar = "list"),
+  
+  prototype = prototype(
+    pmeanalpha = list(),
+    pmode = list(),
+    pvar = list())
 )
 
