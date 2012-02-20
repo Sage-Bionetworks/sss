@@ -89,7 +89,8 @@ setMethod(
 #           mac.binary.leopardi386   = .mac32sss(setupLoc), ## DOES THIS EXIST?
            win.binary               = .winsss(setupLoc),
            sourcex86_64             = .source64sss(setupLoc),
-           sourcei386               = .source32sss(setupLoc))
+           sourcei386               = .source32sss(setupLoc),
+           stop("No sss executable available for this platform\nSee http://www.stat.osu.edu/~hans/sss/ for info on available platforms."))
   }
 )
 
