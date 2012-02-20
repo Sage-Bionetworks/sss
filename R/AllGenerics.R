@@ -98,9 +98,9 @@ setGeneric(
 )
 
 setGeneric(
-  name = "readSummary",
+  name = ".readSummary",
   def = function(object){
-    standardGeneric("readSummary")
+    standardGeneric(".readSummary")
   }
 )
 

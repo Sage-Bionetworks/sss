@@ -210,7 +210,7 @@ setClass(
     pvar = "list"),
   
   prototype = prototype(
-    sssModel = new"sssSurvivalModel",
+    sssModel = new("sssSurvivalModel"),
     pmeanalpha = list(),
     pmode = list(),
     pvar = list())
