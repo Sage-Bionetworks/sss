@@ -3,7 +3,7 @@
 
 
 setMethod(
-  f = "readSummary",
+  f = ".readSummary",
   signature = "sssLinearModel",
   definition = function(object){
     
@@ -23,6 +23,7 @@ setMethod(
     postdf <- as.list(as.numeric(outSum[, pmax*pmax + 2*pmax + 4]))
     
     new("sssLinearResult",
+        sssModel = object,
         p = p,
         score = score,
         indices = indices,
@@ -36,7 +37,7 @@ setMethod(
 
 
 setMethod(
-  f = "readSummary",
+  f = ".readSummary",
   signature = "sssBinaryModel",
   definition = function(object){
     
@@ -54,6 +55,7 @@ setMethod(
                                                   x[!is.na(x)] })
     
     new("sssBinaryResult",
+        sssModel = object,
         p = p,
         score = score,
         indices = indices,
@@ -65,7 +67,7 @@ setMethod(
 
 
 setMethod(
-  f = "readSummary",
+  f = ".readSummary",
   signature = "sssSurvivalModel",
   definition = function(object){
     
@@ -84,6 +86,7 @@ setMethod(
                                                   x[!is.na(x)] })
     
     new("sssSurvivalResult",
+        sssModel = object,
         p = p,
         score = score,
         indices = indices,
@@ -92,3 +95,23 @@ setMethod(
         pvar = pvar)
   }
 )
+
+
+
+#####
+## SET A SHOW METHOD FOR GENERIC sssModel
+#####
+setMethod(
+  f = "show",
+  signature = "sssResult",
+  definition = function(object){
+    cat('An object of class "', class(object), '"\n', sep="")
+    
+    these <- slotNames(object)
+    cat("Contains slots (class)\n")
+    cat("----------------------\n")
+    for(this in these)
+      cat(this, " (", class(slot(object, this)), ")\n", sep="")
+  }
+)
+

@@ -28,7 +28,7 @@ setMethod(
     .sssWorkhorse(setupLoc)
     
     ## NOW THAT SSS HAS BEEN CALLED, RETURN SUMMARY OF MODEL RUN
-    outSum <- readSummary(object)
+    outSum <- .readSummary(object)
     return(outSum)
   }
 )

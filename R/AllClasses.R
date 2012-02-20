@@ -154,6 +154,7 @@ setClass(
   
   representation = representation(
     "VIRTUAL",
+    sssModel = "sssModel",
     p = "list",
     score = "list",
     indices = "list"),
@@ -169,12 +170,14 @@ setClass(
   contains = "sssResult",
   
   representation = representation(
+    sssModel = "sssLinearModel",
     pmean = "list",
     pvar = "list",
     residsd = "list",
     postdf = "list"),
   
   prototype = prototype(
+    sssModel = new("sssLinearModel"),
     pmean = list(),
     pvar = list(),
     residsd = list(),
@@ -186,10 +189,12 @@ setClass(
   contains = "sssResult",
   
   representation = representation(
+    sssModel = "sssBinaryModel",
     pmode = "list",
     pvar = "list"),
   
   prototype = prototype(
+    sssModel = new("sssBinaryModel"),
     pmode = list(),
     pvar = list())
 )
@@ -199,11 +204,13 @@ setClass(
   contains = "sssResult",
   
   representation = representation(
+    sssModel = "sssSurvivalModel",
     pmeanalpha = "list",
     pmode = "list",
     pvar = "list"),
   
   prototype = prototype(
+    sssModel = new"sssSurvivalModel",
     pmeanalpha = list(),
     pmode = list(),
     pvar = list())
