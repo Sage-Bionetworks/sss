@@ -6,35 +6,25 @@
 #####
 setMethod(
   f = "LinearModel",
-  signature = c("numeric", "data.frame", "missing", "missing"),
-  definition = function(response, data, weights, setupSpec){
-    LinearModel(response, data, numeric(), list())
+  signature = c("numeric", "data.frame", "missing", "ANY"),
+  definition = function(response, data, weights, ...){
+    LinearModel(response, data, numeric(), ...)
   }
 )
 setMethod(
   f = "LinearModel",
-  signature = c("numeric", "data.frame", "numeric", "missing"),
-  definition = function(response, data, weights, setupSpec){
-    LinearModel(response, data, weights, list())
-  }
-)
-setMethod(
-  f = "LinearModel",
-  signature = c("numeric", "data.frame", "missing", "list"),
-  definition = function(response, data, weights, setupSpec){
-    LinearModel(response, data, numeric(), setupSpec)
-  }
-)
-
-setMethod(
-  f = "LinearModel",
-  signature = c("numeric", "data.frame", "numeric", "list"),
-  definition = function(response, data, weights, setupSpec){
+  signature = c("numeric", "data.frame", "numeric", "ANY"),
+  definition = function(response, data, weights, ...){
+    
+    args <- list(...)
+    if(any(names(ags) == ""))
+      stop("Optional arguments passed for sssSetup must be named")
+    
     newMod <- new("sssLinearModel",
                   response = response,
                   data = data,
                   weights = weights,
-                  setupSpec = setupSpec)
+                  setupSpec = new("sssSetup", ...))
   }
 )
 
@@ -44,36 +34,27 @@ setMethod(
 #####
 setMethod(
   f = "BinaryModel",
-  signature = c("numeric", "data.frame", "missing", "missing"),
-  definition = function(response, data, weights, setupSpec){
-    BinaryModel(response, data, numeric(), list())
-  }
-)
-setMethod(
-  f = "BinaryModel",
-  signature = c("numeric", "data.frame", "numeric", "missing"),
-  definition = function(response, data, weights, setupSpec){
-    BinaryModel(response, data, weights, list())
-  }
-)
-setMethod(
-  f = "BinaryModel",
-  signature = c("numeric", "data.frame", "missing", "list"),
-  definition = function(response, data, weights, setupSpec){
-    BinaryModel(response, data, numeric(), setupSpec)
+  signature = c("numeric", "data.frame", "missing", "ANY"),
+  definition = function(response, data, weights, ...){
+    BinaryModel(response, data, numeric(), ...)
   }
 )
 
 
 setMethod(
   f = "BinaryModel",
-  signature = c("numeric", "data.frame", "numeric", "list"),
-  definition = function(response, data, weights, setupSpec){
+  signature = c("numeric", "data.frame", "numeric", "ANY"),
+  definition = function(response, data, weights, ...){
+
+    args <- list(...)
+    if(any(names(ags) == ""))
+      stop("Optional arguments passed for sssSetup must be named")
+    
     newMod <- new("sssBinaryModel",
                   response = response,
                   data = data,
                   weights = weights,
-                  setupSpec = setupSpec)
+                  setupSpec = new("sssSetup", ...))
   }
 )
 
@@ -83,37 +64,27 @@ setMethod(
 #####
 setMethod(
   f = "SurvivalModel",
-  signature = c("numeric", "numeric", "data.frame", "missing", "missing"),
-  definition = function(timeToEvent, censor, data, weights, setupSpec){
-    SurvivalModel(timeToEvent, censor, data, numeric(), list())
-  }
-)
-setMethod(
-  f = "SurvivalModel",
-  signature = c("numeric", "numeric", "data.frame", "missing", "list"),
-  definition = function(timeToEvent, censor, data, weights, setupSpec){
-    SurvivalModel(timeToEvent, censor, data, numeric(), setupSpec)
-  }
-)
-setMethod(
-  f = "SurvivalModel",
-  signature = c("numeric", "numeric", "data.frame", "numeric", "missing"),
-  definition = function(timeToEvent, censor, data, weights, setupSpec){
-    SurvivalModel(timeToEvent, censor, data, weights, list())
+  signature = c("numeric", "numeric", "data.frame", "missing", "ANY"),
+  definition = function(timeToEvent, censor, data, weights, ...){
+    SurvivalModel(timeToEvent, censor, data, numeric(), ...)
   }
 )
 
-
 setMethod(
   f = "SurvivalModel",
-  signature = c("numeric", "numeric", "data.frame", "numeric", "list"),
-  definition = function(timeToEvent, censor, data, weights, setupSpec){
+  signature = c("numeric", "numeric", "data.frame", "numeric", "ANY"),
+  definition = function(timeToEvent, censor, data, weights, ...){
+
+    args <- list(...)
+    if(any(names(ags) == ""))
+      stop("Optional arguments passed for sssSetup must be named")
+    
     newMod <- new("sssSurvivalModel",
                   timeToEvent = timeToEvent,
                   censor = censor,
                   data = data,
                   weights = weights,
-                  setupSpec = setupSpec)
+                  setupSpec = new("sssSetup", ...))
   }
 )
 

@@ -18,7 +18,7 @@ setClass(
     "VIRTUAL",
     data = "data.frame",
     weights = "numeric",
-    setupSpec = "list")  
+    setupSpec = "sssSetup")  
 )
 setValidity(
   Class = "sssModel",

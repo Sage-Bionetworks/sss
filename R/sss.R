@@ -17,20 +17,19 @@ setMethod(
   definition = function(object){
     
     ## FILL IN SETUP INFORMATION
-    object@setupSpec[["NOBSERVATIONS"]] <- nrow(object@data)
-    object@setupSpec[["NVARIABLES"]] <- ncol(object@data)
-    object@setupSpec[["DATAFILE"]] <- writeData(object@data)
+    object@setupSpec@NOBSERVATIONS <- nrow(object@data)
+    object@setupSpec@NVARIABLES <- ncol(object@data)
+    object@setupSpec@DATAFILE <- writeData(object@data)
     if( !is.null(object@weights) ){
-      object@setupSpec[["WEIGHTSFILE"]] <- writeWeights(object@weights)
+      object@setupSpec@WEIGHTSFILE <- writeWeights(object@weights)
     } else{
-      object@setupSpec[["WEIGHTSFILE"]] <- writeWeights(rep(1, nrow(object@data)))
+      object@setupSpec@WEIGHTSFILE <- writeWeights(rep(1, nrow(object@data)))
     }
     
     ## PASS ON TO DISPATCH METHOD DIFFERING BY MODEL TYPE TO FILL IN THE REST OF THE SETUP PARAMS
     object <- .sssDis(object)
     
     ## UPDATE DEFAULT SETUP WITH USER SPECIFIED VALUES - AND WRITE OUT THE FILE
-    object@setupSpec <- updateSetup(object@setupSpec)
     setupLoc <- writeSetup(object@setupSpec)
     
     ## RUN SSS (ALL THAT IS NEEDED IS THE LOCATION OF THE SETUP FILE)
@@ -55,8 +54,8 @@ setMethod(
   signature = "sssLinearModel",
   definition = function(object){
     
-    object@setupSpec[["RESPONSEFILE"]] <- writeResponse(object@response)
-    object@setupSpec[["modtype"]] <- 1
+    object@setupSpec@RESPONSEFILE <- writeResponse(object@response)
+    object@setupSpec@modtype <- 1
     object
     
   }
@@ -66,8 +65,8 @@ setMethod(
   signature = "sssBinaryModel",
   definition = function(object){
     
-    object@setupSpec[["RESPONSEFILE"]] <- writeResponse(object@response)
-    object@setupSpec[["modtype"]] <- 2
+    object@setupSpec@RESPONSEFILE <- writeResponse(object@response)
+    object@setupSpec@modtype <- 2
     object
     
   }
@@ -77,9 +76,9 @@ setMethod(
   signature = "sssSurvivalModel",
   definition = function(object){
     
-    object@setupSpec[["CENSORFILE"]] <- writeCensor(object@censor)
-    object@setupSpec[["RESPONSEFILE"]] <- writeResponse(object@timeToEvent)
-    object@setupSpec[["modtype"]] <- 3
+    object@setupSpec@CENSORFILE <- writeCensor(object@censor)
+    object@setupSpec@RESPONSEFILE <- writeResponse(object@timeToEvent)
+    object@setupSpec@modtype <- 3
     object
     
   }
