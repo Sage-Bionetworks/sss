@@ -132,7 +132,7 @@ setMethod(
     cat("Contains slots (class)\n")
     cat("----------------------\n")
     for(this in these)
-      cat("@", this, " (", class(slot(object, this)), ")\n", sep="")
+      cat("  ", this, " (", class(slot(object, this)), ")\n", sep="")
   }
 )
 

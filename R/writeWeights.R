@@ -1,6 +1,7 @@
-## WRITE OUT THE WEIGHTS FILE FOR INPUT TO SSS BINARY
-#####
-
+#' Write out the weights file for input to sss binary
+#'
+#' @param weights a numeric vector to be written to file in tempdir()
+#' @return the full file path to the file written out
 setMethod(
   f = "writeWeights",
   signature = "numeric",

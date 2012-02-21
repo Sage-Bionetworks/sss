@@ -20,9 +20,9 @@ setGeneric(
   }
 )
 setGeneric(
-  name = ".sssWorkhorse",
+  name = ".sssPlatform",
   def = function(setupLoc){
-    standardGeneric(".sssWorkhorse")
+    standardGeneric(".sssPlatform")
   }
 )
 

@@ -3,21 +3,22 @@
 ## AUTHOR: BRIAN M. BOT
 #####
 
+
 ## VIRTUAL CLASS THAT WILL BE EXTENDED BY EACH MODEL TYPE
+
+
+#' ssModel virtual class and the classes that contain it
+#'
+#' @alias sssLinearModel,sssBinaryModel,sssSurvivalModel
+#' @exportClass
 setClass(
   Class = "sssModel",
   
   representation = representation(
     "VIRTUAL",
-    modtype = "numeric",
     data = "data.frame",
     weights = "numeric",
-    setupSpec = "list"),
-  
-  prototype = prototype(
-    data = data.frame(),
-    weights = numeric(),
-    setupSpec = list())
+    setupSpec = "list")  
 )
 setValidity(
   Class = "sssModel",
@@ -45,11 +46,7 @@ setClass(
   contains = "sssModel",
   
   representation = representation(
-    response = "numeric"),
-  
-  prototype = prototype(
-    modtype = 1,
-    response = numeric())
+    response = "numeric")
 )
 setValidity(
   "sssLinearModel",
@@ -60,9 +57,6 @@ setValidity(
     }
     if( any(is.na(object@response)) ){
       return("NAs not allowed in response vector")
-    }
-    if( object@modtype != 1 ){
-      return("modtype by definition must be 1")
     }
     
     ## IF PASS ABOVE CHECKS THEN RETURN TRUE
@@ -76,11 +70,7 @@ setClass(
   contains = "sssModel",
   
   representation = representation(
-    response = "numeric"),
-  
-  prototype = prototype(
-    modtype = 2,
-    response = numeric())
+    response = "numeric")
 )
 setValidity(
   "sssBinaryModel",
@@ -95,9 +85,6 @@ setValidity(
     if( !all(sort(unique(object@response)) %in% c(0, 1)) ){
       stop("response for binary must only contain values of 0 and 1")
     }
-    if( object@modtype != 2 ){
-      return("modtype by definition must be 2")
-    }
     
     ## IF PASS ABOVE CHECKS THEN RETURN TRUE
     return(TRUE)
@@ -111,12 +98,7 @@ setClass(
   
   representation = representation(
     timeToEvent = "numeric",
-    censor = "numeric"),
-  
-  prototype = prototype(
-    modtype = 3,
-    timeToEvent = numeric(),
-    censor = numeric())
+    censor = "numeric")  
 )
 setValidity(
   "sssSurvivalModel",
@@ -133,9 +115,6 @@ setValidity(
     }
     if( !all(sort(unique(object@censor)) %in% c(0, 1)) ){
       return("censor must only contain values of 0 (censor) and 1 (event)")
-    }
-    if( object@modtype != 3 ){
-      return("modtype by definition must be 3")
     }
     
     ## IF PASS ABOVE CHECKS THEN RETURN TRUE
@@ -157,12 +136,7 @@ setClass(
     sssModel = "sssModel",
     p = "list",
     score = "list",
-    indices = "list"),
-  
-  prototype = prototype(
-    p = list(),
-    score = list(),
-    indices = list())
+    indices = "list")  
 )
 
 setClass(
@@ -174,14 +148,7 @@ setClass(
     pmean = "list",
     pvar = "list",
     residsd = "list",
-    postdf = "list"),
-  
-  prototype = prototype(
-    sssModel = new("sssLinearModel"),
-    pmean = list(),
-    pvar = list(),
-    residsd = list(),
-    postdf = list())
+    postdf = "list")  
 )
 
 setClass(
@@ -191,12 +158,7 @@ setClass(
   representation = representation(
     sssModel = "sssBinaryModel",
     pmode = "list",
-    pvar = "list"),
-  
-  prototype = prototype(
-    sssModel = new("sssBinaryModel"),
-    pmode = list(),
-    pvar = list())
+    pvar = "list")  
 )
 
 setClass(
@@ -207,12 +169,53 @@ setClass(
     sssModel = "sssSurvivalModel",
     pmeanalpha = "list",
     pmode = "list",
-    pvar = "list"),
+    pvar = "list")
+)
+
+
+## CREATE A CLASS THAT CONTAINS ALL THE SSS SETUP INFORMATION
+setClass(
+  Class = "sssSetup",
+  
+  representation = representation(
+    NOBSERVATIONS = "numeric",
+    NVARIABLES = "numeric",
+    DATAFILE = "character",
+    RESPONSEFILE = "character",
+    WEIGHTSFILE = "character",
+    CENSORFILE = "character",
+    modtype = "numeric",
+    OUTFILE = "character",
+    ITEROUT = "character",
+    SUMMARYFILE = "character",
+    NOISY = "numeric",
+    NORMSTAND = "numeric",
+    PSTART = "numeric",
+    ONEVAR = "numeric",
+    iters = "numeric",
+    NBest = "numeric",
+    pmax = "numeric",
+    innerAnneal1 = "numeric",
+    innerAnneal2 = "numeric",
+    innerAnneal3 = "numeric",
+    outerAnneal = "numeric",
+    priormeanp = "numeric"),
   
   prototype = prototype(
-    sssModel = new("sssSurvivalModel"),
-    pmeanalpha = list(),
-    pmode = list(),
-    pvar = list())
-)
+    OUTFILE = file.path(tempdir(), "outputModels.txt"),
+    ITEROUT = file.path(tempdir(), "iterout.txt"),
+    SUMMARYFILE = file.path(tempdir(), "modelsummary.txt"),
+    NOISY = 1,
+    NORMSTAND = 1,
+    PSTART = 2,
+    ONEVAR = 1,
+    iters = 100,
+    NBest = 10,
+    pmax = 15,
+    innerAnneal1 = 0.6,
+    innerAnneal2 = 0.8,
+    innerAnneal3 = 1,
+    outerAnneal = 0.4,
+    priormeanp = 5)
+)  
 

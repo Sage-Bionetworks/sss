@@ -1,10 +1,7 @@
-## WRITE OUT THE SETUP FILE FOR INPUT TO SSS BINARY
-##
-## SPECIFY DEFAULTS IN setupBase
-## FUNCTION TAKES IN setupSpec THAT USER PROVIDES
-## OUTPUT IS THE FILE THAT IS TO BE WRITTEN (setupSpec LIST IN R)
-#####
-
+#' Write out the setup file for input to sss binary
+#'
+#' @param setupSpec a list to be written to file in tempdir()
+#' @return the full file path to the file written out
 setMethod(
   f = "writeSetup",
   signature = "list",

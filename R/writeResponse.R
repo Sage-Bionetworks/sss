@@ -1,6 +1,7 @@
-## WRITE OUT THE RESPONSE FILE FOR INPUT TO SSS BINARY
-#####
-
+#' Write out the response file for input to sss binary
+#'
+#' @param response a numeric vector to be written to file in tempdir()
+#' @return the full file path to the file written out
 setMethod(
   f = "writeResponse",
   signature = "numeric",

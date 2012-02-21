@@ -1,6 +1,7 @@
-## WRITE OUT THE CENSOR FILE FOR INPUT TO SSS BINARY
-#####
-
+#' Write out the censor file for input to sss binary
+#'
+#' @param censor a numeric vector to be written to file in tempdir()
+#' @return the full file path to the file written out
 setMethod(
   f = "writeCensor",
   signature = "numeric",
