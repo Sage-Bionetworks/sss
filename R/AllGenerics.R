@@ -61,12 +61,6 @@ setGeneric(
 ## METHODS FOR WRITING OUT AND READING IN FILES
 #####
 setGeneric(
-  name = "updateSetup",
-  def = function(setupSpec){
-    standardGeneric("updateSetup")
-  }
-)
-setGeneric(
   name = "writeSetup",
   def = function(setupSpec){
     standardGeneric("writeSetup")
@@ -109,19 +103,19 @@ setGeneric(
 #####
 setGeneric(
   name = "LinearModel",
-  def = function(response, data, weights, setupSpec){
+  def = function(response, data, weights, ...){
     standardGeneric("LinearModel")
   }
 )
 setGeneric(
   name = "BinaryModel",
-  def = function(response, data, weights, setupSpec){
+  def = function(response, data, weights, ...){
     standardGeneric("BinaryModel")
   }
 )
 setGeneric(
   name = "SurvivalModel",
-  def = function(timeToEvent, censor, data, weights, setupSpec){
+  def = function(timeToEvent, censor, data, weights, ...){
     standardGeneric("SurvivalModel")
   }
 )

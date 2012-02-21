@@ -6,18 +6,18 @@
 #####
 setMethod(
   f = "LinearModel",
-  signature = c("numeric", "data.frame", "missing", "ANY"),
+  signature = c("numeric", "data.frame", "missing"),
   definition = function(response, data, weights, ...){
     LinearModel(response, data, numeric(), ...)
   }
 )
 setMethod(
   f = "LinearModel",
-  signature = c("numeric", "data.frame", "numeric", "ANY"),
+  signature = c("numeric", "data.frame", "numeric"),
   definition = function(response, data, weights, ...){
     
     args <- list(...)
-    if(any(names(ags) == ""))
+    if(any(names(args) == ""))
       stop("Optional arguments passed for sssSetup must be named")
     
     newMod <- new("sssLinearModel",
@@ -34,7 +34,7 @@ setMethod(
 #####
 setMethod(
   f = "BinaryModel",
-  signature = c("numeric", "data.frame", "missing", "ANY"),
+  signature = c("numeric", "data.frame", "missing"),
   definition = function(response, data, weights, ...){
     BinaryModel(response, data, numeric(), ...)
   }
@@ -43,11 +43,11 @@ setMethod(
 
 setMethod(
   f = "BinaryModel",
-  signature = c("numeric", "data.frame", "numeric", "ANY"),
+  signature = c("numeric", "data.frame", "numeric"),
   definition = function(response, data, weights, ...){
 
     args <- list(...)
-    if(any(names(ags) == ""))
+    if(any(names(args) == ""))
       stop("Optional arguments passed for sssSetup must be named")
     
     newMod <- new("sssBinaryModel",
@@ -64,7 +64,7 @@ setMethod(
 #####
 setMethod(
   f = "SurvivalModel",
-  signature = c("numeric", "numeric", "data.frame", "missing", "ANY"),
+  signature = c("numeric", "numeric", "data.frame", "missing"),
   definition = function(timeToEvent, censor, data, weights, ...){
     SurvivalModel(timeToEvent, censor, data, numeric(), ...)
   }
@@ -72,11 +72,11 @@ setMethod(
 
 setMethod(
   f = "SurvivalModel",
-  signature = c("numeric", "numeric", "data.frame", "numeric", "ANY"),
+  signature = c("numeric", "numeric", "data.frame", "numeric"),
   definition = function(timeToEvent, censor, data, weights, ...){
 
     args <- list(...)
-    if(any(names(ags) == ""))
+    if(any(names(args) == ""))
       stop("Optional arguments passed for sssSetup must be named")
     
     newMod <- new("sssSurvivalModel",

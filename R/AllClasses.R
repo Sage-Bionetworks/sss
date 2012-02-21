@@ -3,6 +3,54 @@
 ## AUTHOR: BRIAN M. BOT
 #####
 
+## CREATE A CLASS THAT CONTAINS ALL THE SSS SETUP INFORMATION
+setClass(
+  Class = "sssSetup",
+  
+  representation = representation(
+    NOBSERVATIONS = "numeric",
+    NVARIABLES = "numeric",
+    DATAFILE = "character",
+    RESPONSEFILE = "character",
+    WEIGHTSFILE = "character",
+    CENSORFILE = "character",
+    modtype = "numeric",
+    OUTFILE = "character",
+    ITEROUT = "character",
+    SUMMARYFILE = "character",
+    NOISY = "numeric",
+    NORMSTAND = "numeric",
+    PSTART = "numeric",
+    ONEVAR = "numeric",
+    iters = "numeric",
+    NBest = "numeric",
+    pmax = "numeric",
+    innerAnneal1 = "numeric",
+    innerAnneal2 = "numeric",
+    innerAnneal3 = "numeric",
+    outerAnneal = "numeric",
+    priormeanp = "numeric"),
+  
+  prototype = prototype(
+    WEIGHTSFILE = "NA",
+    CENSORFILE = "NA",
+    OUTFILE = file.path(tempdir(), "outputModels.txt"),
+    ITEROUT = file.path(tempdir(), "iterout.txt"),
+    SUMMARYFILE = file.path(tempdir(), "modelsummary.txt"),
+    NOISY = 1,
+    NORMSTAND = 1,
+    PSTART = 2,
+    ONEVAR = 1,
+    iters = 100,
+    NBest = 10,
+    pmax = 15,
+    innerAnneal1 = 0.6,
+    innerAnneal2 = 0.8,
+    innerAnneal3 = 1,
+    outerAnneal = 0.4,
+    priormeanp = 5)
+)  
+
 
 ## VIRTUAL CLASS THAT WILL BE EXTENDED BY EACH MODEL TYPE
 
@@ -172,50 +220,4 @@ setClass(
     pvar = "list")
 )
 
-
-## CREATE A CLASS THAT CONTAINS ALL THE SSS SETUP INFORMATION
-setClass(
-  Class = "sssSetup",
-  
-  representation = representation(
-    NOBSERVATIONS = "numeric",
-    NVARIABLES = "numeric",
-    DATAFILE = "character",
-    RESPONSEFILE = "character",
-    WEIGHTSFILE = "character",
-    CENSORFILE = "character",
-    modtype = "numeric",
-    OUTFILE = "character",
-    ITEROUT = "character",
-    SUMMARYFILE = "character",
-    NOISY = "numeric",
-    NORMSTAND = "numeric",
-    PSTART = "numeric",
-    ONEVAR = "numeric",
-    iters = "numeric",
-    NBest = "numeric",
-    pmax = "numeric",
-    innerAnneal1 = "numeric",
-    innerAnneal2 = "numeric",
-    innerAnneal3 = "numeric",
-    outerAnneal = "numeric",
-    priormeanp = "numeric"),
-  
-  prototype = prototype(
-    OUTFILE = file.path(tempdir(), "outputModels.txt"),
-    ITEROUT = file.path(tempdir(), "iterout.txt"),
-    SUMMARYFILE = file.path(tempdir(), "modelsummary.txt"),
-    NOISY = 1,
-    NORMSTAND = 1,
-    PSTART = 2,
-    ONEVAR = 1,
-    iters = 100,
-    NBest = 10,
-    pmax = 15,
-    innerAnneal1 = 0.6,
-    innerAnneal2 = 0.8,
-    innerAnneal3 = 1,
-    outerAnneal = 0.4,
-    priormeanp = 5)
-)  
 
