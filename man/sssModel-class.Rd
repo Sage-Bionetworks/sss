@@ -3,7 +3,6 @@
 \docType{class}
 \alias{sssModel-class}
 \alias{show,sssModel-method}
-\alias{sss,sssModel-method}
 
 \title{Virtual class \code{"sssModel"}}
 
