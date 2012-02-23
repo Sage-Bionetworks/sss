@@ -61,33 +61,33 @@ setGeneric(
 ## METHODS FOR WRITING OUT AND READING IN FILES
 #####
 setGeneric(
-  name = "writeSetup",
+  name = ".writeSetup",
   def = function(setupSpec){
-    standardGeneric("writeSetup")
+    standardGeneric(".writeSetup")
   }
 )
 setGeneric(
-  name = "writeWeights",
+  name = ".writeWeights",
   def = function(weights){
-    standardGeneric("writeWeights")
+    standardGeneric(".writeWeights")
   }
 )
 setGeneric(
-  name = "writeResponse",
+  name = ".writeResponse",
   def = function(response){
-    standardGeneric("writeResponse")
+    standardGeneric(".writeResponse")
   }
 )
 setGeneric(
-  name = "writeData",
+  name = ".writeData",
   def = function(data){
-    standardGeneric("writeData")
+    standardGeneric(".writeData")
   }
 )
 setGeneric(
-  name = "writeCensor",
+  name = ".writeCensor",
   def = function(censor){
-    standardGeneric("writeCensor")
+    standardGeneric(".writeCensor")
   }
 )
 

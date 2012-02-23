@@ -3,7 +3,7 @@
 #' @param data a data frame to be written to file in tempdir()
 #' @return the full file path to the file written out
 setMethod(
-  f = "writeData",
+  f = ".writeData",
   signature = "data.frame",
   definition = function(data){
     

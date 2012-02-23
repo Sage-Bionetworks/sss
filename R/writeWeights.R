@@ -3,7 +3,7 @@
 #' @param weights a numeric vector to be written to file in tempdir()
 #' @return the full file path to the file written out
 setMethod(
-  f = "writeWeights",
+  f = ".writeWeights",
   signature = "numeric",
   definition = function(weights){
     

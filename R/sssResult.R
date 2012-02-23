@@ -7,7 +7,7 @@ setMethod(
   signature = "sssLinearModel",
   definition = function(object){
     
-    outSum <- read.table(object@setupSpec@SUMMARYFILE, header=F, sep=" ", as.is=T)
+    outSum <- read.table(object@setupSpec@summaryfile, header=F, sep=" ", as.is=T)
     pmax <- sqrt(ncol(outSum) - 3) - 1
     
     ## SPECIFY OUTPUT AS DESCRIBED BY HANS ET AL
@@ -41,7 +41,7 @@ setMethod(
   signature = "sssBinaryModel",
   definition = function(object){
     
-    outSum <- read.table(object@setupSpec@SUMMARYFILE, header=F, sep=" ", as.is=T)
+    outSum <- read.table(object@setupSpec@summaryfile, header=F, sep=" ", as.is=T)
     pmax <- sqrt(ncol(outSum)) - 2
     
     ## SPECIFY OUTPUT AS DESCRIBED BY HANS ET AL
@@ -71,7 +71,7 @@ setMethod(
   signature = "sssSurvivalModel",
   definition = function(object){
     
-    outSum <- read.table(object@setupSpec@SUMMARYFILE, header=F, sep=" ", as.is=T)
+    outSum <- read.table(object@setupSpec@summaryfile, header=F, sep=" ", as.is=T)
     pmax <- sqrt(ncol(outSum) + 1) - 3
     
     ## SPECIFY OUTPUT AS DESCRIBED BY HANS ET AL

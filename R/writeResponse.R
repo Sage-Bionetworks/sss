@@ -3,7 +3,7 @@
 #' @param response a numeric vector to be written to file in tempdir()
 #' @return the full file path to the file written out
 setMethod(
-  f = "writeResponse",
+  f = ".writeResponse",
   signature = "numeric",
   definition = function(response){
     

@@ -17,20 +17,20 @@ setMethod(
   definition = function(object){
     
     ## FILL IN SETUP INFORMATION
-    object@setupSpec@NOBSERVATIONS <- nrow(object@data)
-    object@setupSpec@NVARIABLES <- ncol(object@data)
-    object@setupSpec@DATAFILE <- writeData(object@data)
+    object@setupSpec@nobervations <- nrow(object@data)
+    object@setupSpec@nvariables <- ncol(object@data)
+    object@setupSpec@datafile <- .writeData(object@data)
     if( !is.null(object@weights) ){
-      object@setupSpec@WEIGHTSFILE <- writeWeights(object@weights)
+      object@setupSpec@weightsfile <- .writeWeights(object@weights)
     } else{
-      object@setupSpec@WEIGHTSFILE <- writeWeights(rep(1, nrow(object@data)))
+      object@setupSpec@weightsfile <- .writeWeights(rep(1, nrow(object@data)))
     }
     
     ## PASS ON TO DISPATCH METHOD DIFFERING BY MODEL TYPE TO FILL IN THE REST OF THE SETUP PARAMS
     object <- .sssDis(object)
     
     ## UPDATE DEFAULT SETUP WITH USER SPECIFIED VALUES - AND WRITE OUT THE FILE
-    setupLoc <- writeSetup(object@setupSpec)
+    setupLoc <- .writeSetup(object@setupSpec)
     
     ## RUN SSS (ALL THAT IS NEEDED IS THE LOCATION OF THE SETUP FILE)
     .sssPlatform(setupLoc)
@@ -54,7 +54,7 @@ setMethod(
   signature = "sssLinearModel",
   definition = function(object){
     
-    object@setupSpec@RESPONSEFILE <- writeResponse(object@response)
+    object@setupSpec@responsefile <- .writeResponse(object@response)
     object@setupSpec@modtype <- 1
     object
     
@@ -65,7 +65,7 @@ setMethod(
   signature = "sssBinaryModel",
   definition = function(object){
     
-    object@setupSpec@RESPONSEFILE <- writeResponse(object@response)
+    object@setupSpec@responsefile <- .writeResponse(object@response)
     object@setupSpec@modtype <- 2
     object
     
@@ -76,8 +76,8 @@ setMethod(
   signature = "sssSurvivalModel",
   definition = function(object){
     
-    object@setupSpec@CENSORFILE <- writeCensor(object@censor)
-    object@setupSpec@RESPONSEFILE <- writeResponse(object@timeToEvent)
+    object@setupSpec@censorfile <- .writeCensor(object@censor)
+    object@setupSpec@responsefile <- .writeResponse(object@timeToEvent)
     object@setupSpec@modtype <- 3
     object
     
@@ -124,8 +124,8 @@ setMethod(
   f = ".mac64sss",
   signature = c("character"),
   definition = function(setupLoc){
-    #    pathToExec <- file.path(path.package("sss"), "exec")
-    pathToExec <- file.path("/Users/brian/workspace/gitRepos/sss/inst", "exec")
+    pathToExec <- file.path(path.package("sss"), "exec")
+    #pathToExec <- file.path("/Users/brian/workspace/gitRepos/sss/inst", "exec")
     system(paste(file.path(pathToExec, "modelsearch"), setupLoc, sep=" "))
     system(paste(file.path(pathToExec, "modelsummary"), setupLoc, sep=" "))
   }
@@ -141,8 +141,8 @@ setMethod(
   f = ".winsss",
   signature = c("character"),
   definition = function(setupLoc){
-    #    pathToExec <- file.path(path.package("sss"), "exec")
-    pathToExec <- file.path("/Users/brian/workspace/gitRepos/sss/inst", "exec")
+    pathToExec <- file.path(path.package("sss"), "exec")
+    #pathToExec <- file.path("/Users/brian/workspace/gitRepos/sss/inst", "exec")
     system(paste(file.path(pathToExec, "modelsearch.exe"), setupLoc, sep=" "))
     system(paste(file.path(pathToExec, "modelsummary.exe"), setupLoc, sep=" "))
   }
@@ -158,8 +158,8 @@ setMethod(
   f = ".source64sss",
   signature = c("character"),
   definition = function(setupLoc){
-    #    pathToExec <- file.path(path.package("sss"), "exec")
-    pathToExec <- file.path("/Users/brian/workspace/gitRepos/sss/inst", "exec")
+    pathToExec <- file.path(path.package("sss"), "exec")
+    #pathToExec <- file.path("/Users/brian/workspace/gitRepos/sss/inst", "exec")
     system(paste(file.path(pathToExec, "modelsearch64"), setupLoc, sep=" "))
     system(paste(file.path(pathToExec, "modelsummary64"), setupLoc, sep=" "))
   }
@@ -175,8 +175,8 @@ setMethod(
   f = ".source32sss",
   signature = c("character"),
   definition = function(setupLoc){
-    #    pathToExec <- file.path(path.package("sss"), "exec")
-    pathToExec <- file.path("/Users/brian/workspace/gitRepos/sss/inst", "exec")
+    pathToExec <- file.path(path.package("sss"), "exec")
+    #pathToExec <- file.path("/Users/brian/workspace/gitRepos/sss/inst", "exec")
     system(paste(file.path(pathToExec, "modelsearch32"), setupLoc, sep=" "))
     system(paste(file.path(pathToExec, "modelsummary32"), setupLoc, sep=" "))
   }

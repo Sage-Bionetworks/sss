@@ -3,7 +3,7 @@
 #' @param setupSpec a list to be written to file in tempdir()
 #' @return the full file path to the file written out
 setMethod(
-  f = "writeSetup",
+  f = ".writeSetup",
   signature = "sssSetup",
   definition = function(setupSpec){
     

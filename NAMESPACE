@@ -1,2 +1,21 @@
 ## EXPORT MAIN sss FUNCTION
-export("sss")
+exportMethods(sss)
+
+## EXPORT MODEL CONSTRUCTORS
+exportMethods(
+  LinearModel,
+  BinaryModel,
+  SurvivalModel
+)
+
+## EXPORT CLASSES
+exportClasses(
+  sssModel,
+  sssLinearModel,
+  sssBinaryModel,
+  sssSurvivalModel,
+  sssResult,
+  sssLinearResult,
+  sssBinaryResult,
+  sssSurvivalResult
+)
