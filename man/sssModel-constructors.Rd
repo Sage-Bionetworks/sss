@@ -16,7 +16,7 @@
   \describe{
     \item{\code{signature(response = "numeric", data = "data.frame", weights = "missing", ...)}}{}
     \item{\code{signature(response = "numeric", data = "data.frame", weights = "numeric", ...)}}{
-      Constructs a \linkS4class{sssBinaryModel} object given parameters \code{response} (numeric vector), \code{data} (data.frame), and optionally \code{weights} (numeric vector) and further named arguments passed by ... to override the default slots of the class \linkS4class{sssSetup}
+      Constructs a \code{sssBinaryModel} object given parameters \code{response} (numeric vector), \code{data} (data.frame), and optionally \code{weights} (numeric vector) and further named arguments passed by ... to override the default slots of the class \code{sssSetup}
     }
   }
 }
@@ -25,7 +25,7 @@
   \describe{
     \item{\code{signature(response = "numeric", data = "data.frame", weights = "missing", ...)}}{}
     \item{\code{signature(response = "numeric", data = "data.frame", weights = "numeric", ...)}}{
-      Constructs a \linkS4class{sssLinearModel} object given parameters \code{response} (numeric vector), \code{data} (data.frame), and optionally \code{weights} (numeric vector) and further named arguments passed by ... to override the default slots of the class \linkS4class{sssSetup}
+      Constructs a \code{sssLinearModel} object given parameters \code{response} (numeric vector), \code{data} (data.frame), and optionally \code{weights} (numeric vector) and further named arguments passed by ... to override the default slots of the class \code{sssSetup}
     }
   }
 }
@@ -34,16 +34,16 @@
   \describe{
     \item{\code{signature(timeToEvent = "numeric", censor = "numeric", data = "data.frame", weights = "missing", ...)}}{}
     \item{\code{signature(timeToEvent = "numeric", censor = "numeric", data = "data.frame", weights = "numeric", ...)}}{
-      Constructs a \linkS4class{sssSurvivalModel} object given parameters \code{timeToEvent} (numeric vector), \code{censor} (numeric vector), \code{data} (data.frame), and optionally \code{weights} (numeric vector) and further named arguments passed by ... to override the default slots of the class \linkS4class{sssSetup}
+      Constructs a \code{sssSurvivalModel} object given parameters \code{timeToEvent} (numeric vector), \code{censor} (numeric vector), \code{data} (data.frame), and optionally \code{weights} (numeric vector) and further named arguments passed by ... to override the default slots of the class \code{sssSetup}
     }
   }
 }
 
 \seealso{
   \describe{
-    \item{classes}{ \linkS4class{sssBinaryModel}, \linkS4class{sssLinearModel}, \linkS4class{sssSurvivalModel} }
-    \item{constructors}{ \linkS4method{BinaryModel}, \linkS4method{LinearModel}, \linkS4method{SurvivalModel} }
-    \item{methods}{ \linkS4method{sss} }
+    \item{classes}{ \code{sssBinaryModel}, \code{sssLinearModel}, \code{sssSurvivalModel} }
+    \item{constructors}{ \code{BinaryModel}, \code{LinearModel}, \code{SurvivalModel} }
+    \item{methods}{ \code{sss} }
   }
 }
 

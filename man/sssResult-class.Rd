@@ -14,9 +14,9 @@ A virtual class on which specific sss model result types (binary, linear, surviv
 
 \seealso{
   \describe{
-    \item{classes}{ \linkS4class{sssBinaryModel}, \linkS4class{sssLinearModel}, \linkS4class{sssSurvivalModel} }
-    \item{constructors}{ \linkS4method{BinaryModel}, \linkS4method{LinearModel}, \linkS4method{SurvivalModel} }
-    \item{methods}{ \linkS4method{sss} }
+    \item{classes}{ \code{sssBinaryModel}, \code{sssLinearModel}, \code{sssSurvivalModel} }
+    \item{constructors}{ \code{BinaryModel}, \code{LinearModel}, \code{SurvivalModel} }
+    \item{methods}{ \code{sss} }
   }
 }
 

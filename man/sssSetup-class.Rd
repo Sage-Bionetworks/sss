@@ -41,11 +41,14 @@ http://www.stat.osu.edu/~hans/sss/readme.serial.html
 }
 \seealso{
   \describe{
-    \item{classes}{ \linkS4class{sssBinaryModel}, \linkS4class{sssLinearModel}, \linkS4class{sssSurvivalModel} }
-    \item{constructors}{ \linkS4method{BinaryModel}, \linkS4method{LinearModel}, \linkS4method{SurvivalModel} }
-    \item{methods}{ \linkS4method{sss} }
+    \item{classes}{ \code{sssBinaryModel}, \code{sssLinearModel}, \code{sssSurvivalModel} }
+    \item{constructors}{ \code{BinaryModel}, \code{LinearModel}, \code{SurvivalModel} }
+    \item{methods}{ \code{sss} }
   }
+}
+
 \examples{
 showClass("sssSetup")
 }
+
 \keyword{classes}

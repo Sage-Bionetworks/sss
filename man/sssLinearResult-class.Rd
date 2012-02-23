@@ -8,7 +8,7 @@
 %%  ~~ A concise (1-5 lines) description of what the class is. ~~
 }
 \section{Objects from the Class}{
-Objects are returned by default when an \linkS4class{sssLinearModel} object is passed to the \linkS4method{"sss"} algorithm
+Objects are returned by default when an \code{sssLinearModel} object is passed to the \code{"sss"} algorithm
 }
 
 \section{Slots}{
@@ -25,14 +25,14 @@ Objects are returned by default when an \linkS4class{sssLinearModel} object is p
 }
 
 \section{Extends}{
-Class \code{"\linkS4class{sssResult}"}, directly.
+Class \code{"\code{sssResult}"}, directly.
 }
 
 \seealso{
   \describe{
-    \item{classes}{ \linkS4class{sssBinaryModel}, \linkS4class{sssLinearModel}, \linkS4class{sssSurvivalModel} }
-    \item{constructors}{ \linkS4method{BinaryModel}, \linkS4method{LinearModel}, \linkS4method{SurvivalModel} }
-    \item{methods}{ \linkS4method{sss} }
+    \item{classes}{ \code{sssBinaryModel}, \code{sssLinearModel}, \code{sssSurvivalModel} }
+    \item{constructors}{ \code{BinaryModel}, \code{LinearModel}, \code{SurvivalModel} }
+    \item{methods}{ \code{sss} }
   }
 }
 
