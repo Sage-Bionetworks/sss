@@ -1,6 +1,7 @@
 \name{sssLinearModel-class}
 \Rdversion{1.1}
 \docType{class}
+\alias{sssLinearModel}
 \alias{sssLinearModel-class}
 
 \title{Class \code{"sssLinearModel"}}

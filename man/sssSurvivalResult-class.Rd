@@ -1,6 +1,7 @@
 \name{sssSurvivalResult-class}
 \Rdversion{1.1}
 \docType{class}
+\alias{sssSurvivalResult}
 \alias{sssSurvivalResult-class}
 
 \title{Class \code{"sssSurvivalResult"}}

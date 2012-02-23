@@ -1,6 +1,7 @@
 \name{sssModel-class}
 \Rdversion{1.1}
 \docType{class}
+\alias{sssModel}
 \alias{sssModel-class}
 \alias{show,sssModel-method}
 

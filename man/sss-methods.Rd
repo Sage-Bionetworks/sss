@@ -1,5 +1,6 @@
 \name{sss-methods}
 \docType{methods}
+\alias{sss}
 \alias{sss-methods}
 \alias{sss,sssModel-method}
 

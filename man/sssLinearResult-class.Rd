@@ -1,6 +1,7 @@
 \name{sssLinearResult-class}
 \Rdversion{1.1}
 \docType{class}
+\alias{sssLinearResult}
 \alias{sssLinearResult-class}
 
 \title{Class \code{"sssLinearResult"}}

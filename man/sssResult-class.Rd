@@ -1,6 +1,7 @@
 \name{sssResult-class}
 \Rdversion{1.1}
 \docType{class}
+\alias{sssResult}
 \alias{sssResult-class}
 \alias{show,sssResult-method}
 

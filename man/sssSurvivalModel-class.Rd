@@ -1,6 +1,7 @@
 \name{sssSurvivalModel-class}
 \Rdversion{1.1}
 \docType{class}
+\alias{sssSurvivalModel}
 \alias{sssSurvivalModel-class}
 
 \title{Class \code{"sssSurvivalModel"}}

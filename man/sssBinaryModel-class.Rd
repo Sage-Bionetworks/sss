@@ -1,6 +1,7 @@
 \name{sssBinaryModel-class}
 \Rdversion{1.1}
 \docType{class}
+\alias{sssBinaryModel}
 \alias{sssBinaryModel-class}
 
 \title{Class \code{"sssBinaryModel"}}

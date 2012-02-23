@@ -1,6 +1,7 @@
 \name{sssSetup-class}
 \Rdversion{1.1}
 \docType{class}
+\alias{sssSetup}
 \alias{sssSetup-class}
 \alias{.writeSetup,sssSetup-method}
 

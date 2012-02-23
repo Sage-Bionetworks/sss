@@ -1,11 +1,14 @@
 \name{sssModel-constructors}
 \docType{methods}
+\alias{BinaryModel}
 \alias{BinaryModel-methods}
 \alias{BinaryModel,numeric,data.frame,missing-method}
 \alias{BinaryModel,numeric,data.frame,numeric-method}
+\alias{LinearModel}
 \alias{LinearModel-methods}
 \alias{LinearModel,numeric,data.frame,missing-method}
 \alias{LinearModel,numeric,data.frame,numeric-method}
+\alias{SurvivalModel}
 \alias{SurvivalModel-methods}
 \alias{SurvivalModel,numeric,numeric,data.frame,missing-method}
 \alias{SurvivalModel,numeric,numeric,data.frame,numeric-method}

@@ -1,6 +1,7 @@
 \name{sssBinaryResult-class}
 \Rdversion{1.1}
 \docType{class}
+\alias{sssBinaryResult}
 \alias{sssBinaryResult-class}
 
 \title{Class \code{"sssBinaryResult"}}
