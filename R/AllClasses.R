@@ -35,7 +35,7 @@ setClass(
     responsefile = "NA",
     weightsfile = "NA",
     censorfile = "NA",
-    modtype = "NA",
+    modtype = NA,
     outfile = "NA",
     iterout = "NA",
     summaryfile = "NA",
