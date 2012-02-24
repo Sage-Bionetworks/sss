@@ -8,6 +8,8 @@ setMethod(
   definition = function(setupSpec){
     
     thisOut <- sapply(slotNames(setupSpec), function(x){
+      if(slot(setupSpec, x) == "")
+        slot(setupSpec, x) <- "NA"
       paste(x, " = ", slot(setupSpec, x), sep="")
     })
                       
