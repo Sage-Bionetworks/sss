@@ -20,6 +20,7 @@ setMethod(
     object@setupSpec@nobservations <- nrow(object@data)
     object@setupSpec@nvariables <- ncol(object@data)
     object@setupSpec@datafile <- .writeData(object@data)
+    object@setupSpec@summaryfile <- file.path(tempdir(), "modelsummary.txt")
     if( !is.null(object@weights) ){
       object@setupSpec@weightsfile <- .writeWeights(object@weights)
     } else{

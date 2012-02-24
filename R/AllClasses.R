@@ -37,7 +37,7 @@ setClass(
     censorfile = "NA",
     iterout = "NA",
     outfile = "NA",
-    summaryfile = file.path(tempdir(), "modelsummary.txt"),
+    summaryfile = "NA",
     
     pstart = 2,
     onevar = 1,
