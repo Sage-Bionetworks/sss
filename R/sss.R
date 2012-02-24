@@ -17,7 +17,7 @@ setMethod(
   definition = function(object){
     
     ## FILL IN SETUP INFORMATION
-    object@setupSpec@nobervations <- nrow(object@data)
+    object@setupSpec@nobservations <- nrow(object@data)
     object@setupSpec@nvariables <- ncol(object@data)
     object@setupSpec@datafile <- .writeData(object@data)
     if( !is.null(object@weights) ){
