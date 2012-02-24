@@ -31,6 +31,15 @@ setClass(
     outeranneal = "numeric"),
   
   prototype = prototype(
+    datafile = "NA",
+    responsefile = "NA",
+    weightsfile = "NA",
+    censorfile = "NA",
+    modtype = "NA",
+    outfile = "NA",
+    iterout = "NA",
+    summaryfile = "NA",
+    
     pstart = 2,
     onevar = 1,
     iters = 100,
