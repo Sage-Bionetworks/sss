@@ -35,9 +35,9 @@ setClass(
     responsefile = "NA",
     weightsfile = "NA",
     censorfile = "NA",
-    outfile = "NA",
-    iterout = "NA",
-    summaryfile = "NA",
+    outfile = file.path(tempdir(), "outfile.txt"),
+    iterout = file.path(tempdir(), "iterout.txt"),
+    summaryfile = file.path(tempdir(), "summary.txt"),
     
     pstart = 2,
     onevar = 1,
