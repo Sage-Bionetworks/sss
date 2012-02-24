@@ -15,8 +15,6 @@ setClass(
     weightsfile = "character",
     censorfile = "character",
     modtype = "numeric",
-    outfile = "character",
-    iterout = "character",
     summaryfile = "character",
     
     priormeanp = "numeric",
@@ -35,9 +33,7 @@ setClass(
     responsefile = "NA",
     weightsfile = "NA",
     censorfile = "NA",
-    outfile = file.path(tempdir(), "outfile.txt"),
-    iterout = file.path(tempdir(), "iterout.txt"),
-    summaryfile = file.path(tempdir(), "summary.txt"),
+    summaryfile = file.path(tempdir(), "modelsummary.txt"),
     
     pstart = 2,
     onevar = 1,
