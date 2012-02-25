@@ -13,7 +13,7 @@
 \alias{SurvivalModel,numeric,numeric,data.frame,missing-method}
 \alias{SurvivalModel,numeric,numeric,data.frame,numeric-method}
 
-\title{ ~~ Methods for sssModel class constructors: \code{BinaryModel}, \code{LinearModel}, \code{SurvivalModel}  ~~}
+\title{ Methods for sssModel class constructors: \code{BinaryModel}, \code{LinearModel}, \code{SurvivalModel} }
 
 \section{BinaryModel Methods}{
   \describe{
