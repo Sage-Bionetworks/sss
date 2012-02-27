@@ -5,8 +5,14 @@
 
 setGeneric(
   name = "sss",
-  def = function(object){
+  def = function(formula, ...){
     standardGeneric("sss")
+  }
+)
+setGeneric(
+  name = ".sssWorker",
+  def = function(object){
+    standardGeneric(".sssWorker")
   }
 )
 
@@ -103,19 +109,19 @@ setGeneric(
 #####
 setGeneric(
   name = "LinearModel",
-  def = function(response, data, weights, ...){
+  def = function(call, response, data, weights, setupSpec){
     standardGeneric("LinearModel")
   }
 )
 setGeneric(
   name = "BinaryModel",
-  def = function(response, data, weights, ...){
+  def = function(call, response, data, weights, setupSpec){
     standardGeneric("BinaryModel")
   }
 )
 setGeneric(
   name = "SurvivalModel",
-  def = function(timeToEvent, censor, data, weights, ...){
+  def = function(call, timeToEvent, censor, data, weights, setupSpec){
     standardGeneric("SurvivalModel")
   }
 )

@@ -10,20 +10,20 @@
 %%  ~~ A concise (1-5 lines) description of what the class is. ~~
 }
 \section{Objects from the Class}{
-Objects of class \code{sssSetup} are created by class constructors (see See Also). Defaults of each slot are presented below. Individual slots can be overriden by specifying in ... of the class constructors.
+  Objects of class \code{sssSetup} are completely specified by calling \code{sss} - the defaults of each slot are presented below. Individual slots can be overriden by specifying in ... of \code{sss}.
 }
 \section{Slots}{
   \describe{
-    \item{\code{nobservations}:}{Object of class \code{"numeric"} - SET BY MODEL CONSTRUCTORS }
-    \item{\code{nvariables}:}{Object of class \code{"numeric"} - SET BY MODEL CONSTRUCTORS }
-    \item{\code{datafile}:}{Object of class \code{"character"} - SET BY MODEL CONSTRUCTORS }
-    \item{\code{responsefile}:}{Object of class \code{"character"} - SET BY MODEL CONSTRUCTORS }
-    \item{\code{weightsfile}:}{Object of class \code{"character"} - SET BY MODEL CONSTRUCTORS }
-    \item{\code{censorfile}:}{Object of class \code{"character"} - SET BY MODEL CONSTRUCTORS }
-    \item{\code{modtype}:}{Object of class \code{"numeric"} - SET BY MODEL CONSTRUCTORS }
-    \item{\code{outfile}:}{Object of class \code{"character"} - SET BY MODEL CONSTRUCTORS }
-    \item{\code{iterout}:}{Object of class \code{"character"} - SET BY MODEL CONSTRUCTORS }
-    \item{\code{summaryfile}:}{Object of class \code{"character"} - SET BY MODEL CONSTRUCTORS }
+    \item{\code{nobservations}:}{Object of class \code{"numeric"} - AUTOMATICALLY SET BY \code{sss} }
+    \item{\code{nvariables}:}{Object of class \code{"numeric"} - AUTOMATICALLY SET BY \code{sss} }
+    \item{\code{datafile}:}{Object of class \code{"character"} - AUTOMATICALLY SET BY \code{sss} }
+    \item{\code{responsefile}:}{Object of class \code{"character"} - AUTOMATICALLY SET BY \code{sss} }
+    \item{\code{weightsfile}:}{Object of class \code{"character"} - AUTOMATICALLY SET BY \code{sss} }
+    \item{\code{censorfile}:}{Object of class \code{"character"} - AUTOMATICALLY SET BY \code{sss} }
+    \item{\code{modtype}:}{Object of class \code{"numeric"} - AUTOMATICALLY SET BY \code{sss} }
+    \item{\code{outfile}:}{Object of class \code{"character"} - AUTOMATICALLY SET BY \code{sss} }
+    \item{\code{iterout}:}{Object of class \code{"character"} - AUTOMATICALLY SET BY \code{sss} }
+    \item{\code{summaryfile}:}{Object of class \code{"character"} - AUTOMATICALLY SET BY \code{sss} }
     \item{}{}
     \item{\code{priormeanp}:}{Object of class \code{"numeric"} - default is 5 - prior mean of number of included variables (this is the key sparsity control parameter) - priormeanp=v means that each variable is "in the model" with prior probability v/(number of predictors) }
     \item{\code{pstart}:}{Object of class \code{"numeric"} - default is 2 - initial model size (number of predictors for model to start sss) }
@@ -43,7 +43,6 @@ http://www.stat.osu.edu/~hans/sss/readme.serial.html
 \seealso{
   \describe{
     \item{classes}{ \code{sssBinaryModel}, \code{sssLinearModel}, \code{sssSurvivalModel} }
-    \item{constructors}{ \code{BinaryModel}, \code{LinearModel}, \code{SurvivalModel} }
     \item{methods}{ \code{sss} }
   }
 }

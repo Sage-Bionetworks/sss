@@ -8,7 +8,7 @@
 \title{Virtual class \code{"sssModel"}}
 
 \description{
-A virtual class on which specific sss model types (binary, linear, survival) extend upon.  Created for object oriented dispatch of methods.
+  A virtual class on which specific sss model types (binary, linear, survival) extend upon. Created for object oriented dispatch of methods.
 }
 
 \section{Objects from the Class}{A virtual Class: No objects may be created from it.}
@@ -16,7 +16,6 @@ A virtual class on which specific sss model types (binary, linear, survival) ext
 \seealso{
   \describe{
     \item{classes}{ \code{sssBinaryModel}, \code{sssLinearModel}, \code{sssSurvivalModel} }
-    \item{constructors}{ \code{BinaryModel}, \code{LinearModel}, \code{SurvivalModel} }
     \item{methods}{ \code{sss} }
   }
 }

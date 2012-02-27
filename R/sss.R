@@ -1,18 +1,72 @@
-#' Shotgun Stochastic Search (SSS) main function call
-#'
-#' This function takes an object of a derived class of sssModel depending
-#' on the type of model being run (linear, binary, or survival).  This
-#' function populated necessary input information for the compiled binary
-#' to return results.
-#'
-#' @param object previously constructed object of class derived from \code{sssModel}
-#' @return an object derived from class sssResult dependent on the type of
-#'   model that was fit (linear, binary, survival)
-#' @export
-#' @examples
-#' NEED TO FILL IN EXAMPLES ONCE PACKAGE BUILT AND DATA DIRECTORY AVAILABLE
+## MAIN SSS FUNCTION CALL - AND DISPATCH DEPENDING ON TYPE OF MODEL
+#####
+
 setMethod(
   f = "sss",
+  signature = "formula",
+  definition = function(formula, ...){
+    
+    Call <- match.call()
+    
+    y <- eval(Call$formula[[2]])
+    x <- as.data.frame(eval(Call$formula[[3]]))
+    
+    
+    args <- list(...)
+
+    if(any(names(args) == ""))
+      stop("Optional arguments passed for sssSetup must be named")
+    
+    if( any(names(args) == "weights") ){
+      weights <- args[["weights"]]
+      args[["weights"]] <- NULL
+    } else{
+      weights <- numeric()
+    }
+    
+    setupSpec <- new("sssSetup")
+    if( length(args) != 0L ){
+      for( i in names(args) ){
+        slot(setupSpec, i) <- args[[i]]
+      }
+    }
+    
+    if( !(class(y) %in% c("numeric", "Surv")) )
+      stop("Response must either be a numeric vector or a Surv object")
+    if( class(y) == "Surv" ){
+      myObj <- new("sssSurvivalModel",
+                   call = Call,
+                   timeToEvent = y[, 1],
+                   censor = y[, 2],
+                   data = x,
+                   weights = weights,
+                   setupSpec = setupSpec)
+    } else{
+      if( all(unique(y) %in% c(0, 1)) ){
+        myObj <- new("sssBinaryModel",
+                     call = Call,
+                     response = y,
+                     data = x,
+                     weights = weights,
+                     setupSpec = setupSpec)
+      } else{
+        myObj <- new("sssLinearModel",
+                     call = Call,
+                     response = y,
+                     data = x,
+                     weights = weights,
+                     setupSpec = setupSpec)
+      }
+    }
+    
+    ## RUN THE WORKER THAT WRITES FILES AND RUNS SSS BINARY
+    outSum <- .sssWorker(myObj)
+    return(outSum)
+  }
+)
+
+setMethod(
+  f = ".sssWorker",
   signature = "sssModel",
   definition = function(object){
     
@@ -20,6 +74,8 @@ setMethod(
     object@setupSpec@nobservations <- nrow(object@data)
     object@setupSpec@nvariables <- ncol(object@data)
     object@setupSpec@datafile <- .writeData(object@data)
+    object@setupSpec@iterout <- file.path(tempdir(), "iterout.txt")
+    object@setupSpec@outfile <- file.path(tempdir(), "modelout.txt")
     object@setupSpec@summaryfile <- file.path(tempdir(), "modelsummary.txt")
     if( !is.null(object@weights) ){
       object@setupSpec@weightsfile <- .writeWeights(object@weights)
@@ -185,3 +241,20 @@ setMethod(
 )
 
 
+
+#####
+## SET A SHOW METHOD FOR GENERIC sssModel
+#####
+setMethod(
+  f = "show",
+  signature = "sssModel",
+  definition = function(object){
+    cat('An object of class "', class(object), '"\n\n', sep="")
+    
+    these <- slotNames(object)
+    cat("Contains slots (class)\n")
+    cat("----------------------\n")
+    for(this in these)
+      cat("  ", this, " (", class(slot(object, this)), ")\n", sep="")
+  }
+  )

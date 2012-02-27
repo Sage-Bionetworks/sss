@@ -8,13 +8,14 @@
 \description{
 %%  ~~ A concise (1-5 lines) description of what the class is. ~~
 }
+
 \section{Objects from the Class}{
-Objects are returned by default when an \code{sssSurvivalModel} object is passed to the \code{"sss"} algorithm
+Objects are returned by default from the \code{"sss"} algorithm
 }
 
 \section{Slots}{
   \describe{
-    \item{\code{sssModel}:}{Object of class \code{"sssSurvivalModel"} - original object passed to the sss method }
+    \item{\code{sssModel}:}{Object of class \code{"sssSurvivalModel"} - information about sss model fit }
     \item{\code{p}:}{Object of class \code{"list"} - number of predictors for this model (each list entry represents the i-th model) }
     \item{\code{score}:}{Object of class \code{"list"} - log posterior probability of this model (each list entry represents the i-th model) }
     \item{\code{indices}:}{Object of class \code{"list"} - the indices of the p variables in this model (each list entry represents the i-th model) }
@@ -31,7 +32,6 @@ Class \code{"\code{sssResult}"}, directly.
 \seealso{
   \describe{
     \item{classes}{ \code{sssBinaryModel}, \code{sssLinearModel}, \code{sssSurvivalModel} }
-    \item{constructors}{ \code{BinaryModel}, \code{LinearModel}, \code{SurvivalModel} }
     \item{methods}{ \code{sss} }
   }
 }

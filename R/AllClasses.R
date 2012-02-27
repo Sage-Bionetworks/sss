@@ -64,6 +64,7 @@ setClass(
   
   representation = representation(
     "VIRTUAL",
+    call = "call",
     data = "data.frame",
     weights = "numeric",
     setupSpec = "sssSetup")  

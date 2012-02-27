@@ -5,7 +5,7 @@ Version: 0.1-1
 Date: 2012-02-16
 Author: Brian M. Bot (utilizing executables from Hans, Dobra, and West)
 Maintainer: Brian M. Bot <brian.bot@sagebase.org>
-Depends: methods
+Depends: methods,survival
 Imports:
 Suggests:
 Description: Shotgun Stochastic Search (SSS) from Hans, Dobra and West (http://pubs.amstat.org/doi/abs/10.1198/016214507000000121) - wrappers written to integrate as an R package to call platform-specific executable.
