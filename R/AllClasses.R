@@ -65,7 +65,7 @@ setClass(
   representation = representation(
     "VIRTUAL",
     call = "call",
-    data = "data.frame",
+    data = "matrix",
     weights = "numeric",
     setupSpec = "sssSetup")  
 )
@@ -183,9 +183,8 @@ setClass(
   representation = representation(
     "VIRTUAL",
     sssModel = "sssModel",
-    p = "list",
-    score = "list",
-    indices = "list")  
+    sssModelNbest = "list",
+    standScore = "list")
 )
 
 setClass(
@@ -193,11 +192,7 @@ setClass(
   contains = "sssResult",
   
   representation = representation(
-    sssModel = "sssLinearModel",
-    pmean = "list",
-    pvar = "list",
-    residsd = "list",
-    postdf = "list")  
+    sssModel = "sssLinearModel")
 )
 
 setClass(
@@ -205,9 +200,7 @@ setClass(
   contains = "sssResult",
   
   representation = representation(
-    sssModel = "sssBinaryModel",
-    pmode = "list",
-    pvar = "list")  
+    sssModel = "sssBinaryModel")
 )
 
 setClass(
@@ -215,10 +208,7 @@ setClass(
   contains = "sssResult",
   
   representation = representation(
-    sssModel = "sssSurvivalModel",
-    pmeanalpha = "list",
-    pmode = "list",
-    pvar = "list")
+    sssModel = "sssSurvivalModel")
 )
 
 

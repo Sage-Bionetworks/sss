@@ -22,15 +22,24 @@ setMethod(
     residsd <- as.list(as.numeric(outSum[, pmax*pmax + 2*pmax + 3]))
     postdf <- as.list(as.numeric(outSum[, pmax*pmax + 2*pmax + 4]))
     
+    ## CREATE MORE MEANINGFUL OUTPUT METRICS
+    pm <- lapply(score, function(x){
+      exp(x-max(unlist(score)))
+    })
+    standScore <- lapply(pm, function(x){
+      x / sum(unlist(pm))
+    })
+    
     new("sssLinearResult",
         sssModel = object,
-        p = p,
-        score = score,
-        indices = indices,
-        pmean = pmean,
-        pvar = pvar,
-        residsd = residsd,
-        postdf = postdf)
+        sssModelNbest = list(p = p,
+                             score = score,
+                             indices = indices,
+                             pmean = pmean,
+                             pvar = pvar,
+                             residsd = residsd,
+                             postdf = postdf),
+        standScore = standScore)
   }
 )
 
@@ -54,13 +63,22 @@ setMethod(
     pvar <- lapply(1:dim(outSum)[1], function(i){ x <- as.numeric(outSum[i, (2*pmax + 4):(pmax*pmax + 4*pmax + 4)])
                                                   x[!is.na(x)] })
     
+    ## CREATE MORE MEANINGFUL OUTPUT METRICS
+    pm <- lapply(score, function(x){
+      exp(x-max(unlist(score)))
+    })
+    standScore <- lapply(pm, function(x){
+      x / sum(unlist(pm))
+    })
+
     new("sssBinaryResult",
         sssModel = object,
-        p = p,
-        score = score,
-        indices = indices,
-        pmode = pmode,
-        pvar = pvar)
+        sssModelNbest = list(p = p,
+                             score = score,
+                             indices = indices,
+                             pmode = pmode,
+                             pvar = pvar),
+        standScore = standScore)
   }
 )
 
@@ -85,14 +103,23 @@ setMethod(
     pvar <- lapply(1:dim(outSum)[1], function(i){ x <- as.numeric(outSum[i, (2*pmax + 5):(pmax*pmax + 6*pmax + 8)])
                                                   x[!is.na(x)] })
     
+    ## CREATE MORE MEANINGFUL OUTPUT METRICS
+    pm <- lapply(score, function(x){
+      exp(x-max(unlist(score)))
+    })
+    standScore <- lapply(pm, function(x){
+      x / sum(unlist(pm))
+    })
+    
     new("sssSurvivalResult",
         sssModel = object,
-        p = p,
-        score = score,
-        indices = indices,
-        pmeanalpha = pmeanalpha,
-        pmode = pmode,
-        pvar = pvar)
+        sssModelNbest = list(p = p,
+                             score = score,
+                             indices = indices,
+                             pmeanalpha = pmeanalpha,
+                             pmode = pmode,
+                             pvar = pvar),
+        standScore = standScore)
   }
 )
 

@@ -9,7 +9,7 @@ setMethod(
     Call <- match.call()
     
     y <- eval(Call$formula[[2]])
-    x <- as.data.frame(eval(Call$formula[[3]]))
+    x <- as.matrix(eval(Call$formula[[3]]))
     
     
     args <- list(...)

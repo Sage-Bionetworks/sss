@@ -27,7 +27,7 @@ Objects are returned by default from the \code{"sss"} algorithm
 }
 
 \section{Extends}{
-Class \code{"\code{sssResult}"}, directly.
+Class \code{"sssResult"}, directly.
 }
 
 \seealso{

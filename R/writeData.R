@@ -4,7 +4,7 @@
 #' @return the full file path to the file written out
 setMethod(
   f = ".writeData",
-  signature = "data.frame",
+  signature = "matrix",
   definition = function(data){
     
     fileLoc <- file.path(tempdir(), "data.txt")

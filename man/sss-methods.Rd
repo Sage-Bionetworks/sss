@@ -14,11 +14,17 @@
   \describe{
     \item{\code{signature(formula = formula, ...)}}{}
     \item{\code{formula}}{
-      of the form "response ~ data", where response is one of: (1) numeric vector (\code{sssLinearModel}); (2) numeric vector of 0s and 1s (\code{sssBinaryModel}); or (3) a Surv object (\code{sssSurvivalModel}), and data is a data.frame with one row per observation and one column per predictor.  \code{sss} method dispatches on an object that has class which is an extension of \code{sssModel} as shown above - and is built based on the response in the specified formula.
+      of the form "response ~ data", where response is one of: (1) numeric vector (\code{sssLinearModel}); (2) numeric vector of 0s and 1s (\code{sssBinaryModel}); or (3) a Surv object (\code{sssSurvivalModel}), and data is a matrix with one row per observation and one column per predictor.  \code{sss} method dispatches on an object that has class which is an extension of \code{sssModel} as shown above - and is built based on the response in the specified formula.
     }
     \item{\code{...}}{
       optional arguments, including: (1) \code{weights} - a numeric vector specifying weights given to each observation; (2) named arguments overwriting of defaults specified in the slots of class \code{sssSetup} - only for advanced users.
     }
+  }
+}
+
+\section{Value}{
+  \describe{
+    Return value is an extension of class \code{sssResult} conditional on the type of model being fit (binary, linear, or survival).
   }
 }
 
