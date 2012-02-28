@@ -108,7 +108,7 @@ setMethod(
     score <- as.list(as.numeric(outSum[, 2]))
     indices <- lapply(1:dim(outSum)[1], function(i){ x <- as.numeric(outSum[i, 3:(p[[i]] + 2)])
                                                      x[!is.na(x)] })
-    pmeanalpha <- lapply(1:dim(outSum)[1], function(i){ x <- as.numeric(outSum[i, (p[[i]] + 4)])
+    pmeanalpha <- lapply(1:dim(outSum)[1], function(i){ x <- as.numeric(outSum[i, (p[[i]] + 3)])
                                                         x[!is.na(x)] })
     pmode <- lapply(1:dim(outSum)[1], function(i){ x <- as.numeric(outSum[i, (p[[i]] + 4):(2*p[[i]] + 4)])
                                                    x[!is.na(x)] })
