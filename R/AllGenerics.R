@@ -104,24 +104,10 @@ setGeneric(
   }
 )
 
-#####
-## CLASS CONSTRUCTORS
-#####
+## GENERIC predict IMPORTED FROM STATS
 setGeneric(
-  name = "LinearModel",
-  def = function(call, response, data, weights, setupSpec){
-    standardGeneric("LinearModel")
-  }
-)
-setGeneric(
-  name = "BinaryModel",
-  def = function(call, response, data, weights, setupSpec){
-    standardGeneric("BinaryModel")
-  }
-)
-setGeneric(
-  name = "SurvivalModel",
-  def = function(call, timeToEvent, censor, data, weights, setupSpec){
-    standardGeneric("SurvivalModel")
+  name = ".sssPredict",
+  def = function(object, newdata){
+    standardGeneric(".sssPredict")
   }
 )

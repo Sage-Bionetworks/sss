@@ -7,18 +7,18 @@ setMethod(
   signature = "sssLinearModel",
   definition = function(object){
     
-    outSum <- read.table(object@setupSpec@summaryfile, header=F, sep=" ", as.is=T)
+    outSum <- read.table(object@setupSpec@summaryfile, header=F, sep=" ", na.strings=c("NA", "nan", "na", "NaN"), as.is=T)
     pmax <- sqrt(ncol(outSum) - 3) - 1
     
     ## SPECIFY OUTPUT AS DESCRIBED BY HANS ET AL
     p <- as.list(as.numeric(outSum[, 1]))
     score <- as.list(as.numeric(outSum[, 2]))
-    indices <- lapply(1:dim(outSum)[1], function(i){ x <- as.numeric(outSum[i, 3:(pmax + 2)])
-                                                     x[!is.na(x)] })
-    pmean <- lapply(1:dim(outSum)[1], function(i){ x <- as.numeric(outSum[i, (pmax + 3):(2*pmax + 2)])
-                                                    x[!is.na(x)] })
-    pvar <- lapply(1:dim(outSum)[1], function(i){ x <- as.numeric(outSum[i, (2*pmax + 3):(pmax*pmax + 2*pmax + 2)])
-                                                  x[!is.na(x)] })
+    indices <- lapply(as.list(1:dim(outSum)[1]), function(i){ x <- as.numeric(outSum[i, 3:(p[[i]] + 2)])
+                                                              x[!is.na(x)] })
+    pmean <- lapply(as.list(1:dim(outSum)[1]), function(i){ x <- as.numeric(outSum[i, (p[[i]] + 3):(2*p[[i]] + 2)])
+                                                            x[!is.na(x)] })
+    pvar <- lapply(as.list(1:dim(outSum)[1]), function(i){ x <- as.numeric(outSum[i, (2*p[[i]] + 3):(p[[i]]*p[[i]] + 2*p[[i]] + 2)])
+                                                           x[!is.na(x)] })
     residsd <- as.list(as.numeric(outSum[, pmax*pmax + 2*pmax + 3]))
     postdf <- as.list(as.numeric(outSum[, pmax*pmax + 2*pmax + 4]))
     
@@ -30,16 +30,21 @@ setMethod(
       x / sum(unlist(pm))
     })
     
-    new("sssLinearResult",
-        sssModel = object,
-        sssModelNbest = list(p = p,
-                             score = score,
-                             indices = indices,
-                             pmean = pmean,
-                             pvar = pvar,
-                             residsd = residsd,
-                             postdf = postdf),
-        standScore = standScore)
+    myRes <- new("sssLinearResult",
+                 sssModel = object,
+                 sssModelNbest = list(p = p,
+                                      score = score,
+                                      indices = indices,
+                                      pmean = pmean,
+                                      pvar = pvar,
+                                      residsd = residsd,
+                                      postdf = postdf,
+                                      standScore = standScore)
+                 )
+    tmpPred <- predict(myRes)
+    myRes@sssModelNbest$predTest <- tmpPred$pred
+    
+    return(myRes)
   }
 )
 
@@ -51,16 +56,16 @@ setMethod(
   definition = function(object){
     
     outSum <- read.table(object@setupSpec@summaryfile, header=F, sep=" ", as.is=T)
-    pmax <- sqrt(ncol(outSum)) - 2
+    #pmax <- sqrt(ncol(outSum)) - 2
     
     ## SPECIFY OUTPUT AS DESCRIBED BY HANS ET AL
     p <- as.list(as.numeric(outSum[, 1]))
     score <- as.list(as.numeric(outSum[, 2]))
-    indices <- lapply(1:dim(outSum)[1], function(i){ x <- as.numeric(outSum[i, 3:(pmax + 2)])
+    indices <- lapply(as.list(1:dim(outSum)[1]), function(i){ x <- as.numeric(outSum[i, 3:(p[[i]] + 2)])
                                                      x[!is.na(x)] })
-    pmode <- lapply(1:dim(outSum)[1], function(i){ x <- as.numeric(outSum[i, (pmax + 3):(2*pmax + 3)])
+    pmode <- lapply(as.list(1:dim(outSum)[1]), function(i){ x <- as.numeric(outSum[i, (p[[i]] + 3):(2*p[[i]] + 3)])
                                                     x[!is.na(x)] })
-    pvar <- lapply(1:dim(outSum)[1], function(i){ x <- as.numeric(outSum[i, (2*pmax + 4):(pmax*pmax + 4*pmax + 4)])
+    pvar <- lapply(as.list(1:dim(outSum)[1]), function(i){ x <- as.numeric(outSum[i, (2*p[[i]] + 4):(p[[i]]*p[[i]] + 4*p[[i]] + 4)])
                                                   x[!is.na(x)] })
     
     ## CREATE MORE MEANINGFUL OUTPUT METRICS
@@ -71,14 +76,20 @@ setMethod(
       x / sum(unlist(pm))
     })
 
-    new("sssBinaryResult",
-        sssModel = object,
-        sssModelNbest = list(p = p,
-                             score = score,
-                             indices = indices,
-                             pmode = pmode,
-                             pvar = pvar),
-        standScore = standScore)
+    myRes <- new("sssBinaryResult",
+                 sssModel = object,
+                 sssModelNbest = list(p = p,
+                                      score = score,
+                                      indices = indices,
+                                      pmode = pmode,
+                                      pvar = pvar,
+                                      standScore = standScore)
+                 )
+    tmpPred <- predict(myRes)
+    myRes@sssModelNbest$predTest <- tmpPred$pred
+    myRes@sssModelNbest$pFitTest <- tmpPred$pFit
+    
+    return(myRes)
   }
 )
 
@@ -90,17 +101,18 @@ setMethod(
   definition = function(object){
     
     outSum <- read.table(object@setupSpec@summaryfile, header=F, sep=" ", as.is=T)
-    pmax <- sqrt(ncol(outSum) + 1) - 3
+    #pmax <- sqrt(ncol(outSum) + 1) - 3
     
     ## SPECIFY OUTPUT AS DESCRIBED BY HANS ET AL
     p <- as.list(as.numeric(outSum[, 1]))
     score <- as.list(as.numeric(outSum[, 2]))
-    indices <- lapply(1:dim(outSum)[1], function(i){ x <- as.numeric(outSum[i, 3:(pmax + 2)])
+    indices <- lapply(1:dim(outSum)[1], function(i){ x <- as.numeric(outSum[i, 3:(p[[i]] + 2)])
                                                      x[!is.na(x)] })
-    pmeanalpha <- as.list(as.numeric(outSum[, pmax + 3]))
-    pmode <- lapply(1:dim(outSum)[1], function(i){ x <- as.numeric(outSum[i, (pmax + 4):(2*pmax + 4)])
+    pmeanalpha <- lapply(1:dim(outSum)[1], function(i){ x <- as.numeric(outSum[i, (p[[i]] + 4)])
+                                                        x[!is.na(x)] })
+    pmode <- lapply(1:dim(outSum)[1], function(i){ x <- as.numeric(outSum[i, (p[[i]] + 4):(2*p[[i]] + 4)])
                                                    x[!is.na(x)] })
-    pvar <- lapply(1:dim(outSum)[1], function(i){ x <- as.numeric(outSum[i, (2*pmax + 5):(pmax*pmax + 6*pmax + 8)])
+    pvar <- lapply(1:dim(outSum)[1], function(i){ x <- as.numeric(outSum[i, (2*p[[i]] + 5):(p[[i]]*p[[i]] + 6*p[[i]] + 8)])
                                                   x[!is.na(x)] })
     
     ## CREATE MORE MEANINGFUL OUTPUT METRICS
@@ -111,15 +123,20 @@ setMethod(
       x / sum(unlist(pm))
     })
     
-    new("sssSurvivalResult",
-        sssModel = object,
-        sssModelNbest = list(p = p,
-                             score = score,
-                             indices = indices,
-                             pmeanalpha = pmeanalpha,
-                             pmode = pmode,
-                             pvar = pvar),
-        standScore = standScore)
+    myRes <- new("sssSurvivalResult",
+                 sssModel = object,
+                 sssModelNbest = list(p = p,
+                                      score = score,
+                                      indices = indices,
+                                      pmeanalpha = pmeanalpha,
+                                      pmode = pmode,
+                                      pvar = pvar,
+                                      standScore = standScore)
+                 )
+    tmpPred <- predict(myRes)
+    myRes@sssModelNbest$predTest <- tmpPred$pred
+    
+    return(myRes)
   }
 )
 

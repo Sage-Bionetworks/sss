@@ -183,8 +183,7 @@ setClass(
   representation = representation(
     "VIRTUAL",
     sssModel = "sssModel",
-    sssModelNbest = "list",
-    standScore = "list")
+    sssModelNbest = "list")
 )
 
 setClass(
