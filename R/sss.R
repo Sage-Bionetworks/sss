@@ -17,11 +17,11 @@ setMethod(
     if(any(names(args) == ""))
       stop("Optional arguments passed for sssSetup must be named")
     
-    if( any(names(args) == "weights") ){
-      weights <- args[["weights"]]
-      args[["weights"]] <- NULL
+    if( any(names(args) == "training") ){
+      training <- args[["training"]]
+      args[["training"]] <- NULL
     } else{
-      weights <- numeric()
+      training <- numeric()
     }
     
     setupSpec <- new("sssSetup")
@@ -39,7 +39,7 @@ setMethod(
                    timeToEvent = y[, 1],
                    censor = y[, 2],
                    data = x,
-                   weights = weights,
+                   training = training,
                    setupSpec = setupSpec)
     } else{
       if( all(unique(y) %in% c(0, 1)) ){
@@ -47,14 +47,14 @@ setMethod(
                      call = Call,
                      response = y,
                      data = x,
-                     weights = weights,
+                     training = training,
                      setupSpec = setupSpec)
       } else{
         myObj <- new("sssLinearModel",
                      call = Call,
                      response = y,
                      data = x,
-                     weights = weights,
+                     training = training,
                      setupSpec = setupSpec)
       }
     }
@@ -77,8 +77,8 @@ setMethod(
     object@setupSpec@iterout <- file.path(tempdir(), "iterout.txt")
     object@setupSpec@outfile <- file.path(tempdir(), "modelout.txt")
     object@setupSpec@summaryfile <- file.path(tempdir(), "modelsummary.txt")
-    if( !is.null(object@weights) ){
-      object@setupSpec@weightsfile <- .writeWeights(object@weights)
+    if( !is.null(object@training) ){
+      object@setupSpec@weightsfile <- .writeWeights(object@training)
     } else{
       object@setupSpec@weightsfile <- .writeWeights(rep(1, nrow(object@data)))
     }

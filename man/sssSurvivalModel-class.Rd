@@ -19,7 +19,7 @@ Objects created by the sss method.
     \item{\code{timeToEvent}:}{Object of class \code{"numeric"} - numeric vector containing the time to event (or censor) for each observation / sample / patient }
     \item{\code{censor}:}{Object of class \code{"numeric"} - numeric vector containing either a 0 for censored observations or a 1 for observations with an observed event }
     \item{\code{data}:}{Object of class \code{"matrix"} - numeric matrix with one row per observation and one column per predictor }
-    \item{\code{weights}:}{Object of class \code{"numeric"} - optional numeric vector containing an indicator (0 or 1) for each observation indicating which samples should be included in the model fit }
+    \item{\code{training}:}{Object of class \code{"numeric"} - optional numeric vector containing an indicator (0 or 1) for each observation indicating which observations should be included training set (1) or the testing set (0) }
     \item{\code{setupSpec}:}{Object of class \code{"sssSetup"} - an object specifying further optional parameters to be passed to the sss method call (see \code{sssSetup} for further information) }
   }
 }

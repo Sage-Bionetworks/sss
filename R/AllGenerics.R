@@ -74,7 +74,7 @@ setGeneric(
 )
 setGeneric(
   name = ".writeWeights",
-  def = function(weights){
+  def = function(training){
     standardGeneric(".writeWeights")
   }
 )

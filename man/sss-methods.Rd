@@ -17,7 +17,7 @@
       of the form "response ~ data", where response is one of: (1) numeric vector (\code{sssLinearModel}); (2) numeric vector of 0s and 1s (\code{sssBinaryModel}); or (3) a Surv object (\code{sssSurvivalModel}), and data is a matrix with one row per observation and one column per predictor.  \code{sss} method dispatches on an object that has class which is an extension of \code{sssModel} as shown above - and is built based on the response in the specified formula.
     }
     \item{\code{...}}{
-      optional arguments, including: (1) \code{weights} - a numeric vector specifying weights given to each observation; (2) named arguments overwriting of defaults specified in the slots of class \code{sssSetup} - only for advanced users.
+      optional arguments, including: (1) \code{training} - a numeric indicator (length of number of observations) specifying if an observation is to be used in model training (value of 1) or in the model testing validation (value of 0) - \code{training} is called "weights" in sss documentation; and/or (2) named arguments overwriting of defaults specified in the slots of class \code{sssSetup} - only for advanced users.
     }
   }
 }
@@ -30,7 +30,8 @@
 
 \seealso{
   \describe{
-    \item{classes}{ \code{sssModel}, \code{sssLinearModel}, \code{sssSurvivalModel} }
+    \item{model classes}{ \code{sssModel}, \code{sssBinaryModel}, \code{sssLinearModel}, \code{sssSurvivalModel} }
+    \item{result classes}{ \code{sssResult}, \code{sssBinaryResult}, \code{sssLinearResult}, \code{sssSurvivalResult} }
   }
 }
 

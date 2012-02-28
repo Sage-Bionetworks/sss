@@ -66,20 +66,20 @@ setClass(
     "VIRTUAL",
     call = "call",
     data = "matrix",
-    weights = "numeric",
+    training = "numeric",
     setupSpec = "sssSetup")  
 )
 setValidity(
   Class = "sssModel",
   function(object){
 
-    if( length(object@weights) != 0L ){
+    if( length(object@training) != 0L ){
       
-      if( nrow(object@data) != length(object@weights) ){
-        stop("number of rows in data does not match number of values in weights")
+      if( nrow(object@data) != length(object@training) ){
+        stop("number of rows in data does not match number of values in training")
       }
-      if( !all(sort(unique(object@weights)) %in% c(0, 1)) ){
-        stop("weights must only contain values of 0 and 1")
+      if( !all(sort(unique(object@training)) %in% c(0, 1)) ){
+        stop("training must only contain values of 0 and 1")
       }
     }
   }

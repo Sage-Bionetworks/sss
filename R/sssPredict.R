@@ -39,15 +39,15 @@ setMethod(
       } else{
         
         ## OTHERWISE INTERNAL WE CHECK TO SEE IF THERE IS A TEST SET HELD ASIDE
-        if( length(object@sssModel@weights) == 0L ){
+        if( length(object@sssModel@training) == 0L ){
           return(list(pred=NA, pFit=NA))
         }
-        if( all(object@sssModel@weights == 1) ){
+        if( all(object@sssModel@training == 1) ){
           return(list(pred=NA, pFit=NA))
         }
         
         ## RUN PREDICTIONS ON THE TEST SET
-        testX <- object@sssModel@data[object@sssModel@weights==0, ]
+        testX <- object@sssModel@data[object@sssModel@training==0, ]
         myPred <- .sssPredict(object, testX)
       }
             
@@ -67,7 +67,7 @@ setMethod(
     
     thesePreds <- colnames(object@sssModel@data)
     
-    trY <- object@sssModel@response[object@sssModel@weights==1]
+    trY <- object@sssModel@response[object@sssModel@training==1]
     meanY <- mean(trY)
     sdY <- sd(trY)
     

@@ -5,10 +5,10 @@
 setMethod(
   f = ".writeWeights",
   signature = "numeric",
-  definition = function(weights){
+  definition = function(training){
     
     fileLoc <- file.path(tempdir(), "weights.txt")
-    write.table(weights, file=fileLoc, sep="\t", quote=F, row.names=F, col.names=F)
+    write.table(training, file=fileLoc, sep="\t", quote=F, row.names=F, col.names=F)
     
     return(fileLoc)
   }
