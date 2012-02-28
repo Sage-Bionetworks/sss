@@ -11,6 +11,13 @@ setMethod(
     pmax <- sqrt(ncol(outSum) - 3) - 1
     
     ## SPECIFY OUTPUT AS DESCRIBED BY HANS ET AL
+    models <- lapply(as.list(1:dim(outSum)[1]), function(i){
+      p <- as.numeric(outSum[i, 1])
+      score <- as.numeric(outSum[i, 2])
+      indices <- as.numeric(outSum[i, 3:(p + 2)])
+      indices <- indices[!is.na(indices)]
+      pmean <- as.numeric(outSum[i, (p + 3):(2*p + 2)])
+    })
     p <- as.list(as.numeric(outSum[, 1]))
     score <- as.list(as.numeric(outSum[, 2]))
     indices <- lapply(as.list(1:dim(outSum)[1]), function(i){ x <- as.numeric(outSum[i, 3:(p[[i]] + 2)])
@@ -55,7 +62,7 @@ setMethod(
   signature = "sssBinaryModel",
   definition = function(object){
     
-    outSum <- read.table(object@setupSpec@summaryfile, header=F, sep=" ", as.is=T)
+    outSum <- read.table(object@setupSpec@summaryfile, header=F, sep=" ", na.strings=c("NA", "nan", "na", "NaN"), as.is=T)
     #pmax <- sqrt(ncol(outSum)) - 2
     
     ## SPECIFY OUTPUT AS DESCRIBED BY HANS ET AL
@@ -100,7 +107,7 @@ setMethod(
   signature = "sssSurvivalModel",
   definition = function(object){
     
-    outSum <- read.table(object@setupSpec@summaryfile, header=F, sep=" ", as.is=T)
+    outSum <- read.table(object@setupSpec@summaryfile, header=F, sep=" ", na.strings=c("NA", "nan", "na", "NaN"), as.is=T)
     #pmax <- sqrt(ncol(outSum) + 1) - 3
     
     ## SPECIFY OUTPUT AS DESCRIBED BY HANS ET AL
