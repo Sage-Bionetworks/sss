@@ -7,7 +7,7 @@ setMethod(
   signature = "numeric",
   definition = function(censor){
     
-    fileLoc <- file.path(tempdir(), "censor.txt")
+    fileLoc <- tempfile(pattern="censor", tmpdir=tempdir(), fileext=".txt")
     write.table(censor, file=fileLoc, sep="\t", quote=F, row.names=F, col.names=F)
     
     return(fileLoc)

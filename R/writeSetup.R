@@ -13,7 +13,7 @@ setMethod(
       paste(x, " = ", slot(setupSpec, x), sep="")
     })
                       
-    fileLoc <- file.path(tempdir(), "setup.txt")
+    fileLoc <- tempfile(pattern="setup", tmpdir=tempdir(), fileext=".txt")
     write.table(thisOut, file=fileLoc, sep="\t", quote=F, row.names=F, col.names=F)
     
     return(fileLoc)

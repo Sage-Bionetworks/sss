@@ -7,7 +7,7 @@ setMethod(
   signature = "numeric",
   definition = function(training){
     
-    fileLoc <- file.path(tempdir(), "weights.txt")
+    fileLoc <- tempfile(pattern="training", tmpdir=tempdir(), fileext=".txt")
     write.table(training, file=fileLoc, sep="\t", quote=F, row.names=F, col.names=F)
     
     return(fileLoc)

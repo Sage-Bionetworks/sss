@@ -74,9 +74,9 @@ setMethod(
     object@setupSpec@nobservations <- nrow(object@data)
     object@setupSpec@nvariables <- ncol(object@data)
     object@setupSpec@datafile <- .writeData(object@data)
-    object@setupSpec@iterout <- file.path(tempdir(), "iterout.txt")
-    object@setupSpec@outfile <- file.path(tempdir(), "modelout.txt")
-    object@setupSpec@summaryfile <- file.path(tempdir(), "modelsummary.txt")
+    object@setupSpec@iterout <- tempfile(pattern="iterout", tmpdir=tempdir(), fileext=".txt")
+    object@setupSpec@outfile <- tempfile(pattern="modelout", tmpdir=tempdir(), fileext=".txt")
+    object@setupSpec@summaryfile <- tempfile(pattern="modelsummary", tmpdir=tempdir(), fileext=".txt")
     if( !is.null(object@training) ){
       object@setupSpec@weightsfile <- .writeWeights(object@training)
     } else{

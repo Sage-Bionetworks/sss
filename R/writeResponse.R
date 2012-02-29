@@ -7,7 +7,7 @@ setMethod(
   signature = "numeric",
   definition = function(response){
     
-    fileLoc <- file.path(tempdir(), "response.txt")
+    fileLoc <- tempfile(pattern="response", tmpdir=tempdir(), fileext=".txt")
     write.table(response, file=fileLoc, sep="\t", quote=F, row.names=F, col.names=F)
     
     return(fileLoc)

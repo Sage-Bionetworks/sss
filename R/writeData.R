@@ -7,7 +7,7 @@ setMethod(
   signature = "matrix",
   definition = function(data){
     
-    fileLoc <- file.path(tempdir(), "data.txt")
+    fileLoc <- tempfile(pattern="xdata", tmpdir=tempdir(), fileext=".txt")
     write.table(data, file=fileLoc, sep="\t", quote=F, row.names=F, col.names=F)
     
     return(fileLoc)
