@@ -35,15 +35,17 @@ setMethod(
       
       ## IF EXTERNAL USER CALLS PREDICT, JUST PULL FROM THE RESULT OBJECT
       if( exists(deparse(substitute(object@sssModelNbest$predTest))) ){
-        myPred <- object@sssModelNbest$predTest
+        return(object@wAvePredTest)
       } else{
         
         ## OTHERWISE INTERNAL WE CHECK TO SEE IF THERE IS A TEST SET HELD ASIDE
         if( length(object@sssModel@training) == 0L ){
-          return(list(pred=NA, pFit=NA))
+          warning("training argument not passed - no testing set to make predictions on")
+          return(numeric())
         }
         if( all(object@sssModel@training == 1) ){
-          return(list(pred=NA, pFit=NA))
+          warning("all values of training are 1 - not testing set to make predictions on")
+          return(numeric())
         }
         
         ## RUN PREDICTIONS ON THE TEST SET
