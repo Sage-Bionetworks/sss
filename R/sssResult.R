@@ -45,12 +45,10 @@ setMethod(
                                       pmean = pmean,
                                       pvar = pvar,
                                       residsd = residsd,
-                                      postdf = postdf,
-                                      standScore = standScore)
-                 )
-    tmpPred <- predict(myRes)
-    myRes@sssModelNbest$predTest <- tmpPred$pred
-    
+                                      postdf = postdf),
+                 standScore = standScore)
+    myRes@sssModelNbest$predTest <- predict(myRes)
+    myRes@wAvePredTest <- as.numeric(sapply(myRes@sssModelNbest$predTest, as.numeric) %*% matrix(unlist(myRes@standScore)))
     return(myRes)
   }
 )
@@ -89,12 +87,10 @@ setMethod(
                                       score = score,
                                       indices = indices,
                                       pmode = pmode,
-                                      pvar = pvar,
-                                      standScore = standScore)
-                 )
-    tmpPred <- predict(myRes)
-    myRes@sssModelNbest$predTest <- tmpPred$pred
-    myRes@sssModelNbest$pFitTest <- tmpPred$pFit
+                                      pvar = pvar),
+                 standScore = standScore)
+    myRes@sssModelNbest$predTest <- predict(myRes)
+    myRes@wAvePredTest <- as.numeric(sapply(myRes@sssModelNbest$predTest, as.numeric) %*% matrix(unlist(myRes@standScore)))
     
     return(myRes)
   }
@@ -137,11 +133,10 @@ setMethod(
                                       indices = indices,
                                       pmeanalpha = pmeanalpha,
                                       pmode = pmode,
-                                      pvar = pvar,
-                                      standScore = standScore)
-                 )
-    tmpPred <- predict(myRes)
-    myRes@sssModelNbest$predTest <- tmpPred$pred
+                                      pvar = pvar),
+                 standScore = standScore)
+    myRes@sssModelNbest$predTest <- predict(myRes)
+    myRes@wAvePredTest <- as.numeric(sapply(myRes@sssModelNbest$predTest, as.numeric) %*% matrix(unlist(myRes@standScore)))
     
     return(myRes)
   }
