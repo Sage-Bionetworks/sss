@@ -34,7 +34,7 @@ setMethod(
     } else{
       
       ## IF EXTERNAL USER CALLS PREDICT, JUST PULL FROM THE RESULT OBJECT
-      if( exists(deparse(substitute(object@sssModelNbest$predTest))) ){
+      if( exists(deparse(substitute(object@wAvePredTest))) ){
         return(object@wAvePredTest)
       } else{
         
@@ -49,12 +49,23 @@ setMethod(
         }
         
         ## RUN PREDICTIONS ON THE TEST SET
-        testX <- object@sssModel@data[object@sssModel@training==0, ]
-        myPred <- .sssPredict(object, testX)
+        #testX <- object@sssModel@data[object@sssModel@training==0, ]
+        #myPred <- .sssPredict(object, testX)
+        
+        ## THIS SHOULD ALWAYS BE POPULATED IN THIS SCENARIO
+        myPred <- object@sssModelNbest$predTest
       }
             
     }
-    return(myPred)
+    
+    ## RETURN THE WEIGHTED AVERAGE OF THE PREDICTIONS
+    if( length(myPred) != 0L ){
+      wAvePredTest <- as.numeric(sapply(myPred, as.numeric) %*% matrix(object@standScore))
+      return(wAvePredTest)
+    } else{
+      return(numeric())
+    }
+    
   }
 )
 
@@ -93,7 +104,9 @@ setMethod(
         A <- standX[, idp]
       }
       pred <- as.numeric(meanY + (A %*% b)*rep(sdY, nrow(newdata)))
-      names(pred) <- rownames(newdata)
+      if( !is.null(rownames(newdata)) )
+        names(pred) <- rownames(newdata)
+
       pred
     })
     
@@ -133,9 +146,12 @@ setMethod(
         A[, -1] <- standX[, idp]
       }
       est <- as.numeric(A %*% b)
-      names(est) <- rownames(newdata)
+      if( !is.null(rownames(newdata)) )
+        names(est) <- rownames(newdata)
+
       est
     })
+    
     myPred <- lapply(myEst, function(x){
       1 / (1+exp(-1*x))
     })
@@ -178,7 +194,9 @@ setMethod(
       tmpPred <- as.numeric(A %*% b)
       mu <- exp(-1*tmpPred)
       pred <- (mu*log(2))^(1/object@sssModelNbest$pmeanalpha[[i]])
-      names(pred) <- rownames(newdata)
+      if( !is.null(rownames(newdata)) )
+        names(pred) <- rownames(newdata)
+
       pred
     })
     

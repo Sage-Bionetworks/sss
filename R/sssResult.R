@@ -47,8 +47,13 @@ setMethod(
                                       residsd = residsd,
                                       postdf = postdf),
                  standScore = unlist(standScore))
-    myRes@sssModelNbest$predTest <- predict(myRes)
-    myRes@wAvePredTest <- as.numeric(sapply(myRes@sssModelNbest$predTest, as.numeric) %*% matrix(myRes@standScore))
+    if( length(object@training) == 0L | all(object@training == 1) ){
+      myRes@sssModelNbest$predTest <- numeric()
+    } else{
+      myRes@sssModelNbest$predTest <- .sssPredict(myRes, object@data[object@training==0, ])
+    }
+    myRes@wAvePredTest <- predict(myRes)
+    
     return(myRes)
   }
 )
@@ -89,8 +94,12 @@ setMethod(
                                       pmode = pmode,
                                       pvar = pvar),
                  standScore = unlist(standScore))
-    myRes@sssModelNbest$predTest <- predict(myRes)
-    myRes@wAvePredTest <- as.numeric(sapply(myRes@sssModelNbest$predTest, as.numeric) %*% matrix(myRes@standScore))
+    if( length(object@training) == 0L | all(object@training == 1) ){
+      myRes@sssModelNbest$predTest <- numeric()
+    } else{
+      myRes@sssModelNbest$predTest <- .sssPredict(myRes, object@data[object@training==0, ])
+    }
+    myRes@wAvePredTest <- predict(myRes)
     
     return(myRes)
   }
@@ -135,8 +144,12 @@ setMethod(
                                       pmode = pmode,
                                       pvar = pvar),
                  standScore = unlist(standScore))
-    myRes@sssModelNbest$predTest <- predict(myRes)
-    myRes@wAvePredTest <- as.numeric(sapply(myRes@sssModelNbest$predTest, as.numeric) %*% matrix(myRes@standScore))
+    if( length(object@training) == 0L | all(object@training == 1) ){
+      myRes@sssModelNbest$predTest <- numeric()
+    } else{
+      myRes@sssModelNbest$predTest <- .sssPredict(myRes, object@data[object@training==0, ])
+    }
+    myRes@wAvePredTest <- predict(myRes)
     
     return(myRes)
   }
