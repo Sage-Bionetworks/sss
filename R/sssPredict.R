@@ -118,7 +118,7 @@ setMethod(
     
     myEst <- lapply(as.list(1:length(object@sssModelNbest$indices)), function(i){
       b <- matrix(object@sssModelNbest$pmode[[i]], ncol=1)
-      A <- matrix(0, nrow=dim(newdata)[1], ncol=length(b))
+      A <- matrix(0, nrow=dim(newdata)[1], ncol=nrow(b))
       A[, 1] <- 1
       
       if( object@sssModelNbest$p[[i]] > 0 ){
@@ -162,7 +162,7 @@ setMethod(
     
     myPred <- lapply(as.list(1:length(object@sssModelNbest$indices)), function(i){
       b <- matrix(object@sssModelNbest$pmode[[i]], ncol=1)
-      A <- matrix(0, nrow=dim(newdata)[1], ncol=length(b))
+      A <- matrix(0, nrow=dim(newdata)[1], ncol=nrow(b))
       A[, 1] <- 1
       if( object@sssModelNbest$p[[i]] > 0 ){
         if( !is.null(thesePreds) ){
