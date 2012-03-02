@@ -21,7 +21,7 @@ setMethod(
       training <- args[["training"]]
       args[["training"]] <- NULL
     } else{
-      training <- numeric()
+      training <- rep(1, nrow(x))
     }
     
     setupSpec <- new("sssSetup")
@@ -77,11 +77,7 @@ setMethod(
     object@setupSpec@iterout <- tempfile(pattern="iterout", tmpdir=tempdir(), fileext=".txt")
     object@setupSpec@outfile <- tempfile(pattern="modelout", tmpdir=tempdir(), fileext=".txt")
     object@setupSpec@summaryfile <- tempfile(pattern="modelsummary", tmpdir=tempdir(), fileext=".txt")
-    if( !is.null(object@training) ){
-      object@setupSpec@weightsfile <- .writeWeights(object@training)
-    } else{
-      object@setupSpec@weightsfile <- .writeWeights(rep(1, nrow(object@data)))
-    }
+    object@setupSpec@weightsfile <- .writeWeights(object@training)
     
     ## PASS ON TO DISPATCH METHOD DIFFERING BY MODEL TYPE TO FILL IN THE REST OF THE SETUP PARAMS
     object <- .sssDis(object)

@@ -48,7 +48,7 @@ setMethod(
                                       postdf = postdf),
                  standScore = unlist(standScore))
     if( length(object@training) == 0L | all(object@training == 1) ){
-      myRes@sssModelNbest$predTest <- numeric()
+      myRes@sssModelNbest$predTest <- list()
     } else{
       myRes@sssModelNbest$predTest <- .sssPredict(myRes, object@data[object@training==0, ])
     }
@@ -95,7 +95,7 @@ setMethod(
                                       pvar = pvar),
                  standScore = unlist(standScore))
     if( length(object@training) == 0L | all(object@training == 1) ){
-      myRes@sssModelNbest$predTest <- numeric()
+      myRes@sssModelNbest$predTest <- list()
     } else{
       myRes@sssModelNbest$predTest <- .sssPredict(myRes, object@data[object@training==0, ])
     }
@@ -145,7 +145,7 @@ setMethod(
                                       pvar = pvar),
                  standScore = unlist(standScore))
     if( length(object@training) == 0L | all(object@training == 1) ){
-      myRes@sssModelNbest$predTest <- numeric()
+      myRes@sssModelNbest$predTest <- list()
     } else{
       myRes@sssModelNbest$predTest <- .sssPredict(myRes, object@data[object@training==0, ])
     }
