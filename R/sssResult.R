@@ -157,20 +157,3 @@ setMethod(
 
 
 
-#####
-## SET A SHOW METHOD FOR GENERIC sssModel
-#####
-setMethod(
-  f = "show",
-  signature = "sssResult",
-  definition = function(object){
-    cat('An object of class "', class(object), '"\n\n', sep="")
-    
-    these <- slotNames(object)
-    cat("Contains slots (class)\n")
-    cat("----------------------\n")
-    for(this in these)
-      cat("  ", this, " (", class(slot(object, this)), ")\n", sep="")
-  }
-)
-

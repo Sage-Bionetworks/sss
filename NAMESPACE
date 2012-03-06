@@ -1,4 +1,4 @@
-## IMPORT METHODS FROM STATS
+## IMPORT METHODS
 importFrom(stats, predict)
 
 ## EXPORT MAIN sss FUNCTION

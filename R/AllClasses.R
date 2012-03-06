@@ -213,3 +213,78 @@ setClass(
 )
 
 
+
+#####
+## HERE ARE ALL OF THE SHOW METHODS
+#####
+
+## SET A SHOW METHOD FOR GENERIC sssModel
+setMethod(
+  f = "show",
+  signature = "sssResult",
+  definition = function(object){
+    cat('An object of class "', class(object), '"\n\n', sep="")
+    cat()
+    these <- slotNames(object)
+    cat("Contains slots (class)\n")
+    cat("----------------------\n")
+    for(this in these)
+      cat("  ", this, " (", class(slot(object, this)), ")\n", sep="")
+  }
+)
+setMethod(
+  f = "show",
+  signature = "sssResult",
+  definition = function(object){
+    cat('\nType of model fit: "', class(object@sssModel), '"\n\n', sep="")
+    cat("Call: ", deparse(object@sssModel@call), "\n", sep="")
+    cat("Number of features searched : ", ncol(object@sssModel@data), "\n", sep="")
+    cat("Number of training samples  : ", sum(object@sssModel@training==1), "\n", sep="")
+    if( any(object@sssModel@training==0) ){
+      cat("Number of testing samples   : ", sum(object@sssModel@training==0), "\n\n", sep="")
+      cat("To access the predictions on the held-out testing dataset, call:\n")
+      cat("  predict(object)\n", sep="")
+      
+      ## ADD OTHER INFO ABOUT THE PREDICTIONS
+    } else{
+      cat("To test this predictive model against a validation set, pass a new feature matrix to:\n")
+      cat("  predict(object, newdata=newFeatureMatrix)\n", sep="")
+    }
+    
+    these <- slotNames(object)
+    cat("\nContains slots (class)\n")
+    cat("----------------------\n")
+    for(this in these){
+      cat("  ", this, " (", class(slot(object, this)), ")\n", sep="")
+      if( class(slot(object,this)) == "list" ){
+        theseL <- names(slot(object, this))
+        for(thisL in theseL)
+          cat("      ", thisL, "\n", sep="")
+      }
+    }
+    
+  }
+)
+
+
+## SET A SHOW METHOD FOR GENERIC sssModel
+setMethod(
+  f = "show",
+  signature = "sssModel",
+  definition = function(object){
+    cat('An object of class "', class(object), '"\n\n', sep="")
+    
+    these <- slotNames(object)
+    cat("Contains slots (class)\n")
+    cat("----------------------\n")
+    for(this in these){
+      cat("  ", this, " (", class(slot(object, this)), ")\n", sep="")
+      if( class(this) == "list" ){
+        theseL <- names(object)
+        for(thisL in theseL)
+          cat("    ", thisL, " (", class(slot(object, this)[[thisL]]), ")\n", sep="")
+      }
+    }
+  }
+)
+

@@ -111,3 +111,4 @@ setGeneric(
     standardGeneric(".sssPredict")
   }
 )
+
