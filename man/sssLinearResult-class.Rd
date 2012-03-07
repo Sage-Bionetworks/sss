@@ -16,13 +16,20 @@ Objects are returned by default from the \code{"sss"} algorithm
 \section{Slots}{
   \describe{
     \item{\code{sssModel}:}{Object of class \code{"sssLinearModel"} - information about sss model fit }
-    \item{\code{p}:}{Object of class \code{"list"} - number of predictors for this model (each list entry represents the i-th model) }
-    \item{\code{score}:}{Object of class \code{"list"} - log posterior probability of this model (each list entry represents the i-th model) }
-    \item{\code{indices}:}{Object of class \code{"list"} - the indices of the p variables in this model (each list entry represents the i-th model) }
-    \item{\code{pmean}:}{Object of class \code{"list"} - posterior mean of the regression parameter vector beta excluding the intercept (each list entry represents the i-th model) }
-    \item{\code{pvar}:}{Object of class \code{"list"} - posterior variance matrix of beta in vectorized form excluding the intercept (each list entry represents the i-th model) }
-    \item{\code{residsd}:}{Object of class \code{"list"} - residual SD estimate (each list entry represents the i-th model) }
-    \item{\code{postdf}:}{Object of class \code{"list"} posterior degrees of freedom (each list entry represents the i-th model) }
+    \item{\code{sssFitNBest}}{Object of class \code{"list"} - specific information about the n best model fits }
+    
+    \item{    \code{p}:}{Object of class \code{"list"} - number of predictors for this model (each list entry represents the i-th model) }
+    \item{    \code{score}:}{Object of class \code{"list"} - log posterior probability of this model (each list entry represents the i-th model) }
+    \item{    \code{indices}:}{Object of class \code{"list"} - the indices of the p variables in this model (each list entry represents the i-th model) }
+    \item{    \code{pmean}:}{Object of class \code{"list"} - posterior mean of the regression parameter vector beta excluding the intercept (each list entry represents the i-th model) }
+    \item{    \code{pvar}:}{Object of class \code{"list"} - posterior variance matrix of beta in vectorized form excluding the intercept (each list entry represents the i-th model) }
+    \item{    \code{residsd}:}{Object of class \code{"list"} - residual SD estimate (each list entry represents the i-th model) }
+    \item{    \code{postdf}:}{Object of class \code{"list"} posterior degrees of freedom (each list entry represents the i-th model) }
+    \item{    \code{predTest}:}{Object of class \code{"list"} - predictions on test set (if available) based on models fit by training set }
+    
+    \item{\code{standScore}:}{Object of class \code{"numeric"} - the standardized scores for the n best models }
+    \item{\code{postMargProb}:}{Object of class \code{"numeric"} - posterior marginal probabilities of variables included in the n best models sorted in decending order }
+    \item{\code{wAvePredTest}:}{Object of class \code{"numeric"} - weighted average of predictions for each sample passed in the testing set based on \code{standScore} }
   }
 }
 
