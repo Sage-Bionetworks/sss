@@ -53,7 +53,7 @@ setMethod(
         #myPred <- .sssPredict(object, testX)
         
         ## THIS SHOULD ALWAYS BE POPULATED IN THIS SCENARIO
-        myPred <- object@sssModelNbest$predTest
+        myPred <- object@sssFitNBest$predTest
       }
             
     }
@@ -87,20 +87,20 @@ setMethod(
     meanY <- mean(trY)
     sdY <- sd(trY)
     
-    myPred <- lapply(as.list(1:length(object@sssModelNbest$indices)), function(i){
-      if( object@sssModelNbest$p[[i]] == 0 ){
+    myPred <- lapply(as.list(1:length(object@sssFitNBest$indices)), function(i){
+      if( object@sssFitNBest$p[[i]] == 0 ){
         b <- 0
         A <- 0
       } else{
         if( !is.null(thesePreds) ){
-          idp <- thesePreds[object@sssModelNbest$indices[[i]]]
+          idp <- thesePreds[object@sssFitNBest$indices[[i]]]
         } else{
-          idp <- object@sssModelNbest$indices[[i]]
+          idp <- object@sssFitNBest$indices[[i]]
         }
         if( !all(idp %in% colnames(newdata)) )
           stop("all predictors specified in the model are not included in newdata")
         
-        b <- matrix(object@sssModelNbest$pmean[[i]], ncol=1)
+        b <- matrix(object@sssFitNBest$pmean[[i]], ncol=1)
         A <- standX[, idp]
       }
       pred <- as.numeric(meanY + (A %*% b)*rep(sdY, nrow(newdata)))
@@ -129,16 +129,16 @@ setMethod(
       (x-mean(x))/sd(x)
     })
     
-    myEst <- lapply(as.list(1:length(object@sssModelNbest$indices)), function(i){
-      b <- matrix(object@sssModelNbest$pmode[[i]], ncol=1)
+    myEst <- lapply(as.list(1:length(object@sssFitNBest$indices)), function(i){
+      b <- matrix(object@sssFitNBest$pmode[[i]], ncol=1)
       A <- matrix(0, nrow=dim(newdata)[1], ncol=nrow(b))
       A[, 1] <- 1
       
-      if( object@sssModelNbest$p[[i]] > 0 ){
+      if( object@sssFitNBest$p[[i]] > 0 ){
         if( !is.null(thesePreds) ){
-          idp <- thesePreds[object@sssModelNbest$indices[[i]]]
+          idp <- thesePreds[object@sssFitNBest$indices[[i]]]
         } else{
-          idp <- object@sssModelNbest$indices[[i]]
+          idp <- object@sssFitNBest$indices[[i]]
         }
         if( !all(idp %in% colnames(newdata)) )
           stop("all predictors specified in the model are not included in newdata")
@@ -176,15 +176,15 @@ setMethod(
       (x-mean(x))/sd(x)
     })
     
-    myPred <- lapply(as.list(1:length(object@sssModelNbest$indices)), function(i){
-      b <- matrix(object@sssModelNbest$pmode[[i]], ncol=1)
+    myPred <- lapply(as.list(1:length(object@sssFitNBest$indices)), function(i){
+      b <- matrix(object@sssFitNBest$pmode[[i]], ncol=1)
       A <- matrix(0, nrow=dim(newdata)[1], ncol=nrow(b))
       A[, 1] <- 1
-      if( object@sssModelNbest$p[[i]] > 0 ){
+      if( object@sssFitNBest$p[[i]] > 0 ){
         if( !is.null(thesePreds) ){
-          idp <- thesePreds[object@sssModelNbest$indices[[i]]]
+          idp <- thesePreds[object@sssFitNBest$indices[[i]]]
         } else{
-          idp <- object@sssModelNbest$indices[[i]]
+          idp <- object@sssFitNBest$indices[[i]]
         }
         if( !all(idp %in% colnames(newdata)) )
           stop("all predictors specified in the model are not included in newdata")
@@ -193,7 +193,7 @@ setMethod(
       }
       tmpPred <- as.numeric(A %*% b)
       mu <- exp(-1*tmpPred)
-      pred <- (mu*log(2))^(1/object@sssModelNbest$pmeanalpha[[i]])
+      pred <- (mu*log(2))^(1/object@sssFitNBest$pmeanalpha[[i]])
       if( !is.null(rownames(newdata)) )
         names(pred) <- rownames(newdata)
 

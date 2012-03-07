@@ -183,8 +183,9 @@ setClass(
   representation = representation(
     "VIRTUAL",
     sssModel = "sssModel",
-    sssModelNbest = "list",
+    sssFitNBest = "list",
     standScore = "numeric",
+    postMargProb = "numeric",
     wAvePredTest = "numeric")
 )
 
@@ -223,19 +224,6 @@ setMethod(
   f = "show",
   signature = "sssResult",
   definition = function(object){
-    cat('An object of class "', class(object), '"\n\n', sep="")
-    cat()
-    these <- slotNames(object)
-    cat("Contains slots (class)\n")
-    cat("----------------------\n")
-    for(this in these)
-      cat("  ", this, " (", class(slot(object, this)), ")\n", sep="")
-  }
-)
-setMethod(
-  f = "show",
-  signature = "sssResult",
-  definition = function(object){
     cat('\nType of model fit: "', class(object@sssModel), '"\n\n', sep="")
     cat("Call: ", deparse(object@sssModel@call), "\n", sep="")
     cat("Number of features searched : ", ncol(object@sssModel@data), "\n", sep="")
@@ -252,7 +240,8 @@ setMethod(
     }
     
     these <- slotNames(object)
-    cat("\nContains slots (class)\n")
+    cat("\n----------------------\n")
+    cat("Contains slots (class)\n")
     cat("----------------------\n")
     for(this in these){
       cat("  ", this, " (", class(slot(object, this)), ")\n", sep="")
@@ -275,6 +264,7 @@ setMethod(
     cat('An object of class "', class(object), '"\n\n', sep="")
     
     these <- slotNames(object)
+    cat("----------------------\n")
     cat("Contains slots (class)\n")
     cat("----------------------\n")
     for(this in these){

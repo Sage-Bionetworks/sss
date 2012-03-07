@@ -11,13 +11,6 @@ setMethod(
     pmax <- sqrt(ncol(outSum) - 3) - 1
     
     ## SPECIFY OUTPUT AS DESCRIBED BY HANS ET AL
-    models <- lapply(as.list(1:dim(outSum)[1]), function(i){
-      p <- as.numeric(outSum[i, 1])
-      score <- as.numeric(outSum[i, 2])
-      indices <- as.numeric(outSum[i, 3:(p + 2)])
-      indices <- indices[!is.na(indices)]
-      pmean <- as.numeric(outSum[i, (p + 3):(2*p + 2)])
-    })
     p <- as.list(as.numeric(outSum[, 1]))
     score <- as.list(as.numeric(outSum[, 2]))
     indices <- lapply(as.list(1:dim(outSum)[1]), function(i){ x <- as.numeric(outSum[i, 3:(p[[i]] + 2)])
@@ -36,21 +29,27 @@ setMethod(
     standScore <- lapply(pm, function(x){
       x / sum(unlist(pm))
     })
+    pmp <- rep(0, dim(object@data)[2])
+    for(i in 1:length(p)){
+      pmp[indices[[i]]] <- pmp[indices[[i]]] + standScore[[i]]
+    }
+    names(pmp) <- colnames(object@data)
     
     myRes <- new("sssLinearResult",
                  sssModel = object,
-                 sssModelNbest = list(p = p,
+                 sssFitNBest = list(p = p,
                                       score = score,
                                       indices = indices,
                                       pmean = pmean,
                                       pvar = pvar,
                                       residsd = residsd,
                                       postdf = postdf),
-                 standScore = unlist(standScore))
+                 standScore = unlist(standScore),
+                 postMargProb = sort(pmp, decreasing=T))
     if( length(object@training) == 0L | all(object@training == 1) ){
-      myRes@sssModelNbest$predTest <- list()
+      myRes@sssFitNBest$predTest <- list()
     } else{
-      myRes@sssModelNbest$predTest <- .sssPredict(myRes, object@data[object@training==0, ])
+      myRes@sssFitNBest$predTest <- .sssPredict(myRes, object@data[object@training==0, ])
     }
     myRes@wAvePredTest <- predict(myRes)
     
@@ -85,19 +84,25 @@ setMethod(
     standScore <- lapply(pm, function(x){
       x / sum(unlist(pm))
     })
-
+    pmp <- rep(0, dim(object@data)[2])
+    for(i in 1:length(p)){
+      pmp[indices[[i]]] <- pmp[indices[[i]]] + standScore[[i]]
+    }
+    names(pmp) <- colnames(object@data)
+    
     myRes <- new("sssBinaryResult",
                  sssModel = object,
-                 sssModelNbest = list(p = p,
+                 sssFitNBest = list(p = p,
                                       score = score,
                                       indices = indices,
                                       pmode = pmode,
                                       pvar = pvar),
-                 standScore = unlist(standScore))
+                 standScore = unlist(standScore),
+                 postMargProb = sort(pmp, decreasing=T))
     if( length(object@training) == 0L | all(object@training == 1) ){
-      myRes@sssModelNbest$predTest <- list()
+      myRes@sssFitNBest$predTest <- list()
     } else{
-      myRes@sssModelNbest$predTest <- .sssPredict(myRes, object@data[object@training==0, ])
+      myRes@sssFitNBest$predTest <- .sssPredict(myRes, object@data[object@training==0, ])
     }
     myRes@wAvePredTest <- predict(myRes)
     
@@ -134,20 +139,26 @@ setMethod(
     standScore <- lapply(pm, function(x){
       x / sum(unlist(pm))
     })
+    pmp <- rep(0, dim(object@data)[2])
+    for(i in 1:length(p)){
+      pmp[indices[[i]]] <- pmp[indices[[i]]] + standScore[[i]]
+    }
+    names(pmp) <- colnames(object@data)
     
     myRes <- new("sssSurvivalResult",
                  sssModel = object,
-                 sssModelNbest = list(p = p,
+                 sssFitNBest = list(p = p,
                                       score = score,
                                       indices = indices,
                                       pmeanalpha = pmeanalpha,
                                       pmode = pmode,
                                       pvar = pvar),
-                 standScore = unlist(standScore))
+                 standScore = unlist(standScore),
+                 postMargProb = sort(pmp, decreasing=T))
     if( length(object@training) == 0L | all(object@training == 1) ){
-      myRes@sssModelNbest$predTest <- list()
+      myRes@sssFitNBest$predTest <- list()
     } else{
-      myRes@sssModelNbest$predTest <- .sssPredict(myRes, object@data[object@training==0, ])
+      myRes@sssFitNBest$predTest <- .sssPredict(myRes, object@data[object@training==0, ])
     }
     myRes@wAvePredTest <- predict(myRes)
     
