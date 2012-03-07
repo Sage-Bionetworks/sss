@@ -25,7 +25,7 @@ Objects created by the sss method.
 }
 
 \section{Extends}{
-Virtual class \code{"\code{sssModel}"}, directly.
+Virtual class \code{"sssModel"}, directly.
 }
 
 \seealso{
