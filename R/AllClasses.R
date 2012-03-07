@@ -182,11 +182,11 @@ setClass(
   
   representation = representation(
     "VIRTUAL",
-    sssModel = "sssModel",
-    sssFitNBest = "list",
     standScore = "numeric",
     postMargProb = "numeric",
-    wAvePredTest = "numeric")
+    wAvePredTest = "numeric",
+    sssModel = "sssModel",
+    sssFitNBest = "list")
 )
 
 setClass(
