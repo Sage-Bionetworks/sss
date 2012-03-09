@@ -278,3 +278,19 @@ setMethod(
   }
 )
 
+## SET A SHOW METHOD FOR GENERIC sssSetup
+setMethod(
+  f = "show",
+  signature = "sssSetup",
+  definition = function(object){
+    cat('An object of class "', class(object), '"\n\n', sep="")
+    
+    these <- slotNames(object)
+    cat("----------------------------\n")
+    cat("Contains setup slots (class)\n")
+    cat("----------------------------\n")
+    for(this in these){
+      cat("  ", this, " (", slot(object, this), ")\n", sep="")
+    }
+  }
+)
