@@ -44,6 +44,7 @@
   \describe{
     \item{model classes}{ \code{sssModel}, \code{sssBinaryModel}, \code{sssLinearModel}, \code{sssSurvivalModel} }
     \item{result classes}{ \code{sssResult}, \code{sssBinaryResult}, \code{sssLinearResult}, \code{sssSurvivalResult} }
+    \item{setup class}{ \code{sssSetup} }
   }
 }
 

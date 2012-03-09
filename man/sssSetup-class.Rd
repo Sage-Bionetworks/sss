@@ -37,12 +37,15 @@
     \item{\code{outeranneal}:}{Object of class \code{"numeric"} - default is 0.4 - annealing parameter for second level model selection (DEFAULTS SHOULD BE USED) }
   }
 }
+
 \references{
 http://www.stat.osu.edu/~hans/sss/readme.serial.html
 }
+
 \seealso{
   \describe{
-    \item{classes}{ \code{sssBinaryModel}, \code{sssLinearModel}, \code{sssSurvivalModel} }
+    \item{model classes}{ \code{sssModel}, \code{sssBinaryModel}, \code{sssLinearModel}, \code{sssSurvivalModel} }
+    \item{result classes}{ \code{sssResult}, \code{sssBinaryResult}, \code{sssLinearResult}, \code{sssSurvivalResult} }
     \item{methods}{ \code{sss} }
   }
 }

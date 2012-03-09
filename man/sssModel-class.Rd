@@ -15,7 +15,9 @@
 
 \seealso{
   \describe{
-    \item{classes}{ \code{sssBinaryModel}, \code{sssLinearModel}, \code{sssSurvivalModel} }
+    \item{model classes}{ \code{sssBinaryModel}, \code{sssLinearModel}, \code{sssSurvivalModel} }
+    \item{result classes}{ \code{sssResult}, \code{sssBinaryResult}, \code{sssLinearResult}, \code{sssSurvivalResult} }
+    \item{setup class}{ \code{sssSetup} }
     \item{methods}{ \code{sss} }
   }
 }

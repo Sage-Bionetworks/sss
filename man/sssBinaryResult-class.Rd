@@ -37,7 +37,9 @@ Class \code{"sssResult"}, directly.
 
 \seealso{
   \describe{
-    \item{classes}{ \code{sssBinaryModel}, \code{sssLinearModel}, \code{sssSurvivalModel} }
+    \item{model classes}{ \code{sssModel}, \code{sssBinaryModel}, \code{sssLinearModel}, \code{sssSurvivalModel} }
+    \item{result classes}{ \code{sssResult}, \code{sssLinearResult}, \code{sssSurvivalResult} }
+    \item{setup class}{ \code{sssSetup} }
     \item{methods}{ \code{sss} }
   }
 }
