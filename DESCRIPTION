@@ -1,12 +1,12 @@
 Package: sss
 Type: Package
 Title: Shotgun Stochastic Search (SSS) from Hans, Dobra and West
-Version: 0.1-1
-Date: 2012-02-16
+Version: 0.2-1
+Date: 2012-03-09
 Author: Brian M. Bot (utilizing executables from Hans, Dobra, and West)
 Maintainer: Brian M. Bot <brian.bot@sagebase.org>
-Depends: methods,stats,survival
-Imports:
+Depends:
+Imports: methods,stats,survival
 Suggests:
 Description: Shotgun Stochastic Search (SSS) from Hans, Dobra and West (http://pubs.amstat.org/doi/abs/10.1198/016214507000000121) - wrappers written to integrate as an R package to call platform-specific executable.
 License: GPL-3
