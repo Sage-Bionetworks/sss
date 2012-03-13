@@ -28,6 +28,15 @@
     \item{\code{pmax}}{
       maximum model size (maximum number of predictors in any model) - default is 15
     }
+    \item{\code{iters}}{
+      number of MCMC iterations - default is 100
+    }
+    \item{\code{nbest}}{
+      number of models whose output is saved out of the \code{iters} iterations - default is 10
+    }
+    \item{\code{outputDir}}{
+      directory to save text files from sss executable (R objects will be populated as value of \code{sss} call) - default is \code{tempdir()} which will be removed at end of current R session
+    }
     \item{other}{
       named arguments overwriting of defaults specified in the slots of class \code{sssSetup} - only for advanced users.
     }

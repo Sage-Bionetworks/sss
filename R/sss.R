@@ -24,6 +24,13 @@ setMethod(
       training <- rep(1, nrow(x))
     }
     
+    if( any(names(args) == "outputDir") ){
+      outputDir <- args[["outputDir"]]
+      args[["outputDir"]] <- NULL
+    } else{
+      outputDir <- tempdir()
+    }
+
     setupSpec <- new("sssSetup")
     if( length(args) != 0L ){
       for( i in names(args) ){
@@ -74,9 +81,9 @@ setMethod(
     object@setupSpec@nobservations <- nrow(object@data)
     object@setupSpec@nvariables <- ncol(object@data)
     object@setupSpec@datafile <- .writeData(object@data)
-    object@setupSpec@iterout <- tempfile(pattern="iterout", tmpdir=tempdir(), fileext=".txt")
-    object@setupSpec@outfile <- tempfile(pattern="modelout", tmpdir=tempdir(), fileext=".txt")
-    object@setupSpec@summaryfile <- tempfile(pattern="modelsummary", tmpdir=tempdir(), fileext=".txt")
+    object@setupSpec@iterout <- tempfile(pattern="iterout", tmpdir=outputDir, fileext=".txt")
+    object@setupSpec@outfile <- tempfile(pattern="modelout", tmpdir=outputDir, fileext=".txt")
+    object@setupSpec@summaryfile <- tempfile(pattern="modelsummary", tmpdir=outputDir, fileext=".txt")
     object@setupSpec@weightsfile <- .writeWeights(object@training)
     
     ## PASS ON TO DISPATCH METHOD DIFFERING BY MODEL TYPE TO FILL IN THE REST OF THE SETUP PARAMS
