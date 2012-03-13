@@ -15,10 +15,22 @@ setMethod(
     score <- as.list(as.numeric(outSum[, 2]))
     indices <- lapply(as.list(1:dim(outSum)[1]), function(i){ x <- as.numeric(outSum[i, 3:(p[[i]] + 2)])
                                                               x[!is.na(x)] })
-    pmean <- lapply(as.list(1:dim(outSum)[1]), function(i){ x <- as.numeric(outSum[i, (p[[i]] + 3):(2*p[[i]] + 2)])
-                                                            x[!is.na(x)] })
-    pvar <- lapply(as.list(1:dim(outSum)[1]), function(i){ x <- as.numeric(outSum[i, (2*p[[i]] + 3):(p[[i]]*p[[i]] + 2*p[[i]] + 2)])
-                                                           x[!is.na(x)] })
+    pmean <- lapply(as.list(1:dim(outSum)[1]), function(i){
+      if(p[[i]]>0){
+        x <- as.numeric(outSum[i, (p[[i]] + 3):(2*p[[i]] + 2)])
+        x[!is.na(x)]
+      } else{
+        numeric()
+      }
+    })
+    pvar <- lapply(as.list(1:dim(outSum)[1]), function(i){
+      if(p[[i]]>0){
+        x <- as.numeric(outSum[i, (2*p[[i]] + 3):(p[[i]]*p[[i]] + 2*p[[i]] + 2)])
+        x[!is.na(x)]
+      } else{
+        numeric()
+      }
+    })
     residsd <- as.list(as.numeric(outSum[, pmax*pmax + 2*pmax + 3]))
     postdf <- as.list(as.numeric(outSum[, pmax*pmax + 2*pmax + 4]))
     
@@ -31,7 +43,9 @@ setMethod(
     })
     pmp <- rep(0, dim(object@data)[2])
     for(i in 1:length(p)){
-      pmp[indices[[i]]] <- pmp[indices[[i]]] + standScore[[i]]
+      if(p[[i]]>0){
+        pmp[indices[[i]]] <- pmp[indices[[i]]] + standScore[[i]]
+      }
     }
     names(pmp) <- colnames(object@data)
     
@@ -70,12 +84,22 @@ setMethod(
     ## SPECIFY OUTPUT AS DESCRIBED BY HANS ET AL
     p <- as.list(as.numeric(outSum[, 1]))
     score <- as.list(as.numeric(outSum[, 2]))
-    indices <- lapply(as.list(1:dim(outSum)[1]), function(i){ x <- as.numeric(outSum[i, 3:(p[[i]] + 2)])
-                                                     x[!is.na(x)] })
-    pmode <- lapply(as.list(1:dim(outSum)[1]), function(i){ x <- as.numeric(outSum[i, (p[[i]] + 3):(2*p[[i]] + 3)])
-                                                    x[!is.na(x)] })
-    pvar <- lapply(as.list(1:dim(outSum)[1]), function(i){ x <- as.numeric(outSum[i, (2*p[[i]] + 4):(p[[i]]*p[[i]] + 4*p[[i]] + 4)])
-                                                  x[!is.na(x)] })
+    indices <- lapply(as.list(1:dim(outSum)[1]), function(i){
+      if(p[[i]]>0){
+        x <- as.numeric(outSum[i, 3:(p[[i]] + 2)])
+        x[!is.na(x)]
+      } else{
+        numeric()
+      }
+    })
+    pmode <- lapply(as.list(1:dim(outSum)[1]), function(i){
+      x <- as.numeric(outSum[i, (p[[i]] + 3):(2*p[[i]] + 3)])
+      x[!is.na(x)]
+    })
+    pvar <- lapply(as.list(1:dim(outSum)[1]), function(i){
+      x <- as.numeric(outSum[i, (2*p[[i]] + 4):(p[[i]]*p[[i]] + 4*p[[i]] + 4)])
+      x[!is.na(x)]
+    })
     
     ## CREATE MORE MEANINGFUL OUTPUT METRICS
     pm <- lapply(score, function(x){
@@ -86,7 +110,9 @@ setMethod(
     })
     pmp <- rep(0, dim(object@data)[2])
     for(i in 1:length(p)){
-      pmp[indices[[i]]] <- pmp[indices[[i]]] + standScore[[i]]
+      if(length(indices[[i]]) != 0L){
+        pmp[indices[[i]]] <- pmp[indices[[i]]] + standScore[[i]]
+      }
     }
     names(pmp) <- colnames(object@data)
     
@@ -123,14 +149,26 @@ setMethod(
     ## SPECIFY OUTPUT AS DESCRIBED BY HANS ET AL
     p <- as.list(as.numeric(outSum[, 1]))
     score <- as.list(as.numeric(outSum[, 2]))
-    indices <- lapply(1:dim(outSum)[1], function(i){ x <- as.numeric(outSum[i, 3:(p[[i]] + 2)])
-                                                     x[!is.na(x)] })
-    pmeanalpha <- lapply(1:dim(outSum)[1], function(i){ x <- as.numeric(outSum[i, (p[[i]] + 3)])
-                                                        x[!is.na(x)] })
-    pmode <- lapply(1:dim(outSum)[1], function(i){ x <- as.numeric(outSum[i, (p[[i]] + 4):(2*p[[i]] + 4)])
-                                                   x[!is.na(x)] })
-    pvar <- lapply(1:dim(outSum)[1], function(i){ x <- as.numeric(outSum[i, (2*p[[i]] + 5):(p[[i]]*p[[i]] + 6*p[[i]] + 8)])
-                                                  x[!is.na(x)] })
+    indices <- lapply(1:dim(outSum)[1], function(i){
+      if(p[[i]]>0){
+        x <- as.numeric(outSum[i, 3:(p[[i]] + 2)])
+        x[!is.na(x)]
+      } else{
+        numeric()
+      }
+    })
+    pmeanalpha <- lapply(1:dim(outSum)[1], function(i){
+      x <- as.numeric(outSum[i, (p[[i]] + 3)])
+      x[!is.na(x)]
+    })
+    pmode <- lapply(1:dim(outSum)[1], function(i){
+      x <- as.numeric(outSum[i, (p[[i]] + 4):(2*p[[i]] + 4)])
+      x[!is.na(x)]
+    })
+    pvar <- lapply(1:dim(outSum)[1], function(i){
+      x <- as.numeric(outSum[i, (2*p[[i]] + 5):(p[[i]]*p[[i]] + 6*p[[i]] + 8)])
+      x[!is.na(x)]
+    })
     
     ## CREATE MORE MEANINGFUL OUTPUT METRICS
     pm <- lapply(score, function(x){
@@ -141,7 +179,9 @@ setMethod(
     })
     pmp <- rep(0, dim(object@data)[2])
     for(i in 1:length(p)){
-      pmp[indices[[i]]] <- pmp[indices[[i]]] + standScore[[i]]
+      if(p[[i]]>0){
+        pmp[indices[[i]]] <- pmp[indices[[i]]] + standScore[[i]]
+      }
     }
     names(pmp) <- colnames(object@data)
     
