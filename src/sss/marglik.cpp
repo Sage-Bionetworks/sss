@@ -15,7 +15,13 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+#include <limits>
 
+using namespace std;
+
+#ifndef DBL_MAX 
+#define DBL_MAX numeric_limits<double>::max()
+#endif
 
 #include <limits.h>
 //#include <values.h>

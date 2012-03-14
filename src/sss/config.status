@@ -444,11 +444,11 @@ Copyright (C) 2010 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/Users/mfuria/Documents/workspace/sss/src/sss'
+ac_pwd='/Users/furia/Documents/workspace/sss/src/sss'
 srcdir='.'
-INSTALL='/usr/bin/install -c'
-MKDIR_P='./install-sh -c -d'
-AWK='awk'
+INSTALL='/usr/local/bin/bin/ginstall -c'
+MKDIR_P='/usr/local/bin/bin/gmkdir -p'
+AWK='gawk'
 test -n "$AWK" || AWK=awk
 # The default lists apply if the user does not specify any file.
 ac_need_defaults=:
@@ -635,17 +635,17 @@ S["am__tar"]="$${TAR-tar} chof - \"$$tardir\""
 S["AMTAR"]="$${TAR-tar}"
 S["am__leading_dot"]="."
 S["SET_MAKE"]=""
-S["AWK"]="awk"
-S["mkdir_p"]="$(top_builddir)/./install-sh -c -d"
-S["MKDIR_P"]="./install-sh -c -d"
+S["AWK"]="gawk"
+S["mkdir_p"]="/usr/local/bin/bin/gmkdir -p"
+S["MKDIR_P"]="/usr/local/bin/bin/gmkdir -p"
 S["INSTALL_STRIP_PROGRAM"]="$(install_sh) -c -s"
 S["STRIP"]=""
-S["install_sh"]="${SHELL} /Users/mfuria/Documents/workspace/sss/src/sss/install-sh"
-S["MAKEINFO"]="${SHELL} /Users/mfuria/Documents/workspace/sss/src/sss/missing --run makeinfo"
-S["AUTOHEADER"]="${SHELL} /Users/mfuria/Documents/workspace/sss/src/sss/missing --run autoheader"
-S["AUTOMAKE"]="${SHELL} /Users/mfuria/Documents/workspace/sss/src/sss/missing --run automake-1.11"
-S["AUTOCONF"]="${SHELL} /Users/mfuria/Documents/workspace/sss/src/sss/missing --run autoconf"
-S["ACLOCAL"]="${SHELL} /Users/mfuria/Documents/workspace/sss/src/sss/missing --run aclocal-1.11"
+S["install_sh"]="${SHELL} /Users/furia/Documents/workspace/sss/src/sss/install-sh"
+S["MAKEINFO"]="${SHELL} /Users/furia/Documents/workspace/sss/src/sss/missing --run makeinfo"
+S["AUTOHEADER"]="${SHELL} /Users/furia/Documents/workspace/sss/src/sss/missing --run autoheader"
+S["AUTOMAKE"]="${SHELL} /Users/furia/Documents/workspace/sss/src/sss/missing --run automake-1.11"
+S["AUTOCONF"]="${SHELL} /Users/furia/Documents/workspace/sss/src/sss/missing --run autoconf"
+S["ACLOCAL"]="${SHELL} /Users/furia/Documents/workspace/sss/src/sss/missing --run aclocal-1.11"
 S["VERSION"]="0.1"
 S["PACKAGE"]="sss"
 S["CYGPATH_W"]="echo"

@@ -49,13 +49,15 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_modelsearch_OBJECTS = modelsearch-serial_mod_search.$(OBJEXT) \
-	modelsearch-Model.$(OBJEXT) modelsearch-marglik.$(OBJEXT)
+	modelsearch-Model.$(OBJEXT) modelsearch-marglik.$(OBJEXT) \
+	modelsearch-newrun.$(OBJEXT)
 modelsearch_OBJECTS = $(am_modelsearch_OBJECTS)
 modelsearch_LDADD = $(LDADD)
 modelsearch_LINK = $(CXXLD) $(modelsearch_CXXFLAGS) $(CXXFLAGS) \
 	$(AM_LDFLAGS) $(LDFLAGS) -o $@
 am_modelsummary_OBJECTS = modelsummary-summarize_binary.$(OBJEXT) \
-	modelsummary-Model.$(OBJEXT) modelsummary-marglik.$(OBJEXT)
+	modelsummary-Model.$(OBJEXT) modelsummary-marglik.$(OBJEXT) \
+	modelsummary-newrun.$(OBJEXT)
 modelsummary_OBJECTS = $(am_modelsummary_OBJECTS)
 modelsummary_LDADD = $(LDADD)
 modelsummary_LINK = $(CXXLD) $(modelsummary_CXXFLAGS) $(CXXFLAGS) \
@@ -69,6 +71,10 @@ CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 CXXLD = $(CXX)
 CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
+COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
+	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+CCLD = $(CC)
+LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 SOURCES = $(modelsearch_SOURCES) $(modelsummary_SOURCES)
 DIST_SOURCES = $(modelsearch_SOURCES) $(modelsummary_SOURCES)
 ETAGS = etags
@@ -88,13 +94,13 @@ distuninstallcheck_listfiles = find . -type f -print
 am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
-ACLOCAL = ${SHELL} /Users/mfuria/Documents/workspace/sss/src/sss/missing --run aclocal-1.11
+ACLOCAL = ${SHELL} /Users/furia/Documents/workspace/sss/src/sss/missing --run aclocal-1.11
 AMTAR = $${TAR-tar}
 AM_CXXFLAGS = 
-AUTOCONF = ${SHELL} /Users/mfuria/Documents/workspace/sss/src/sss/missing --run autoconf
-AUTOHEADER = ${SHELL} /Users/mfuria/Documents/workspace/sss/src/sss/missing --run autoheader
-AUTOMAKE = ${SHELL} /Users/mfuria/Documents/workspace/sss/src/sss/missing --run automake-1.11
-AWK = awk
+AUTOCONF = ${SHELL} /Users/furia/Documents/workspace/sss/src/sss/missing --run autoconf
+AUTOHEADER = ${SHELL} /Users/furia/Documents/workspace/sss/src/sss/missing --run autoheader
+AUTOMAKE = ${SHELL} /Users/furia/Documents/workspace/sss/src/sss/missing --run automake-1.11
+AWK = gawk
 CPPFLAGS = 
 CXX = g++
 CXXDEPMODE = depmode=gcc3
@@ -106,7 +112,7 @@ ECHO_C = \c
 ECHO_N = 
 ECHO_T = 
 EXEEXT = 
-INSTALL = /usr/bin/install -c
+INSTALL = /usr/local/bin/bin/ginstall -c
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
@@ -115,8 +121,8 @@ LDFLAGS =
 LIBOBJS = 
 LIBS = 
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /Users/mfuria/Documents/workspace/sss/src/sss/missing --run makeinfo
-MKDIR_P = ./install-sh -c -d
+MAKEINFO = ${SHELL} /Users/furia/Documents/workspace/sss/src/sss/missing --run makeinfo
+MKDIR_P = /usr/local/bin/bin/gmkdir -p
 OBJEXT = o
 PACKAGE = sss
 PACKAGE_BUGREPORT = brian.bot@sagebase.org
@@ -130,10 +136,10 @@ SET_MAKE =
 SHELL = /bin/sh
 STRIP = 
 VERSION = 0.1
-abs_builddir = /Users/mfuria/Documents/workspace/sss/src/sss
-abs_srcdir = /Users/mfuria/Documents/workspace/sss/src/sss
-abs_top_builddir = /Users/mfuria/Documents/workspace/sss/src/sss
-abs_top_srcdir = /Users/mfuria/Documents/workspace/sss/src/sss
+abs_builddir = /Users/furia/Documents/workspace/sss/src/sss
+abs_srcdir = /Users/furia/Documents/workspace/sss/src/sss
+abs_top_builddir = /Users/furia/Documents/workspace/sss/src/sss
+abs_top_srcdir = /Users/furia/Documents/workspace/sss/src/sss
 ac_ct_CXX = g++
 am__include = include
 am__leading_dot = .
@@ -152,13 +158,13 @@ host_alias =
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /Users/mfuria/Documents/workspace/sss/src/sss/install-sh
+install_sh = ${SHELL} /Users/furia/Documents/workspace/sss/src/sss/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
 localstatedir = ${prefix}/var
 mandir = ${datarootdir}/man
-mkdir_p = $(top_builddir)/./install-sh -c -d
+mkdir_p = /usr/local/bin/bin/gmkdir -p
 oldincludedir = /usr/include
 pdfdir = ${docdir}
 prefix = /usr/local
@@ -172,9 +178,9 @@ target_alias =
 top_build_prefix = 
 top_builddir = .
 top_srcdir = .
-modelsearch_SOURCES = serial_mod_search.cpp Model.cpp marglik.cpp 
+modelsearch_SOURCES = serial_mod_search.cpp Model.cpp marglik.cpp newrun.cpp newmat/NEWMAT.H newmat/NEWMAT1.CPP newmat/NEWMAT2.CPP newmat/NEWMAT3.CPP newmat/NEWMAT4.CPP newmat/NEWMAT5.CPP newmat/NEWMAT6.CPP newmat/NEWMAT7.CPP newmat/NEWMAT8.CPP newmat/NEWMAT9.CPP
 modelsearch_CXXFLAGS = $(AM_CXXFLAGS)
-modelsummary_SOURCES = summarize_binary.cpp Model.cpp marglik.cpp
+modelsummary_SOURCES = summarize_binary.cpp Model.cpp marglik.cpp newrun.cpp newmat/NEWMAT.H newmat/NEWMAT1.CPP newmat/NEWMAT2.CPP newmat/NEWMAT3.CPP newmat/NEWMAT4.CPP newmat/NEWMAT5.CPP newmat/NEWMAT6.CPP newmat/NEWMAT7.CPP newmat/NEWMAT8.CPP newmat/NEWMAT9.CPP
 modelsummary_CXXFLAGS = $(AM_CXXFLAGS)
 all: all-am
 
@@ -266,9 +272,11 @@ distclean-compile:
 
 include ./$(DEPDIR)/modelsearch-Model.Po
 include ./$(DEPDIR)/modelsearch-marglik.Po
+include ./$(DEPDIR)/modelsearch-newrun.Po
 include ./$(DEPDIR)/modelsearch-serial_mod_search.Po
 include ./$(DEPDIR)/modelsummary-Model.Po
 include ./$(DEPDIR)/modelsummary-marglik.Po
+include ./$(DEPDIR)/modelsummary-newrun.Po
 include ./$(DEPDIR)/modelsummary-summarize_binary.Po
 
 .cpp.o:
@@ -327,6 +335,20 @@ modelsearch-marglik.obj: marglik.cpp
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(modelsearch_CXXFLAGS) $(CXXFLAGS) -c -o modelsearch-marglik.obj `if test -f 'marglik.cpp'; then $(CYGPATH_W) 'marglik.cpp'; else $(CYGPATH_W) '$(srcdir)/marglik.cpp'; fi`
 
+modelsearch-newrun.o: newrun.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(modelsearch_CXXFLAGS) $(CXXFLAGS) -MT modelsearch-newrun.o -MD -MP -MF $(DEPDIR)/modelsearch-newrun.Tpo -c -o modelsearch-newrun.o `test -f 'newrun.cpp' || echo '$(srcdir)/'`newrun.cpp
+	$(am__mv) $(DEPDIR)/modelsearch-newrun.Tpo $(DEPDIR)/modelsearch-newrun.Po
+#	source='newrun.cpp' object='modelsearch-newrun.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(modelsearch_CXXFLAGS) $(CXXFLAGS) -c -o modelsearch-newrun.o `test -f 'newrun.cpp' || echo '$(srcdir)/'`newrun.cpp
+
+modelsearch-newrun.obj: newrun.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(modelsearch_CXXFLAGS) $(CXXFLAGS) -MT modelsearch-newrun.obj -MD -MP -MF $(DEPDIR)/modelsearch-newrun.Tpo -c -o modelsearch-newrun.obj `if test -f 'newrun.cpp'; then $(CYGPATH_W) 'newrun.cpp'; else $(CYGPATH_W) '$(srcdir)/newrun.cpp'; fi`
+	$(am__mv) $(DEPDIR)/modelsearch-newrun.Tpo $(DEPDIR)/modelsearch-newrun.Po
+#	source='newrun.cpp' object='modelsearch-newrun.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(modelsearch_CXXFLAGS) $(CXXFLAGS) -c -o modelsearch-newrun.obj `if test -f 'newrun.cpp'; then $(CYGPATH_W) 'newrun.cpp'; else $(CYGPATH_W) '$(srcdir)/newrun.cpp'; fi`
+
 modelsummary-summarize_binary.o: summarize_binary.cpp
 	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(modelsummary_CXXFLAGS) $(CXXFLAGS) -MT modelsummary-summarize_binary.o -MD -MP -MF $(DEPDIR)/modelsummary-summarize_binary.Tpo -c -o modelsummary-summarize_binary.o `test -f 'summarize_binary.cpp' || echo '$(srcdir)/'`summarize_binary.cpp
 	$(am__mv) $(DEPDIR)/modelsummary-summarize_binary.Tpo $(DEPDIR)/modelsummary-summarize_binary.Po
@@ -368,6 +390,20 @@ modelsummary-marglik.obj: marglik.cpp
 #	source='marglik.cpp' object='modelsummary-marglik.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(modelsummary_CXXFLAGS) $(CXXFLAGS) -c -o modelsummary-marglik.obj `if test -f 'marglik.cpp'; then $(CYGPATH_W) 'marglik.cpp'; else $(CYGPATH_W) '$(srcdir)/marglik.cpp'; fi`
+
+modelsummary-newrun.o: newrun.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(modelsummary_CXXFLAGS) $(CXXFLAGS) -MT modelsummary-newrun.o -MD -MP -MF $(DEPDIR)/modelsummary-newrun.Tpo -c -o modelsummary-newrun.o `test -f 'newrun.cpp' || echo '$(srcdir)/'`newrun.cpp
+	$(am__mv) $(DEPDIR)/modelsummary-newrun.Tpo $(DEPDIR)/modelsummary-newrun.Po
+#	source='newrun.cpp' object='modelsummary-newrun.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(modelsummary_CXXFLAGS) $(CXXFLAGS) -c -o modelsummary-newrun.o `test -f 'newrun.cpp' || echo '$(srcdir)/'`newrun.cpp
+
+modelsummary-newrun.obj: newrun.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(modelsummary_CXXFLAGS) $(CXXFLAGS) -MT modelsummary-newrun.obj -MD -MP -MF $(DEPDIR)/modelsummary-newrun.Tpo -c -o modelsummary-newrun.obj `if test -f 'newrun.cpp'; then $(CYGPATH_W) 'newrun.cpp'; else $(CYGPATH_W) '$(srcdir)/newrun.cpp'; fi`
+	$(am__mv) $(DEPDIR)/modelsummary-newrun.Tpo $(DEPDIR)/modelsummary-newrun.Po
+#	source='newrun.cpp' object='modelsummary-newrun.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(modelsummary_CXXFLAGS) $(CXXFLAGS) -c -o modelsummary-newrun.obj `if test -f 'newrun.cpp'; then $(CYGPATH_W) 'newrun.cpp'; else $(CYGPATH_W) '$(srcdir)/newrun.cpp'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \

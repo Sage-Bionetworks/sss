@@ -1,6 +1,7 @@
 // newran.cpp -----------------------------------------------------------
 //#include "stdafx.h"
 #include "newrun.h"
+#include "newmat/NEWMAT.H"
 
 double Random::seed;
 double Random::Buffer[128];
