@@ -67,15 +67,15 @@ setMethod(
     }
     
     ## RUN THE WORKER THAT WRITES FILES AND RUNS SSS BINARY
-    outSum <- .sssWorker(myObj)
+    outSum <- .sssWorker(myObj, outputDir)
     return(outSum)
   }
 )
 
 setMethod(
   f = ".sssWorker",
-  signature = "sssModel",
-  definition = function(object){
+  signature = c("sssModel", "character"),
+  definition = function(object, outputDir){
     
     ## FILL IN SETUP INFORMATION
     object@setupSpec@nobservations <- nrow(object@data)

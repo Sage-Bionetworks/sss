@@ -11,7 +11,7 @@ setGeneric(
 )
 setGeneric(
   name = ".sssWorker",
-  def = function(object){
+  def = function(object, outputDir){
     standardGeneric(".sssWorker")
   }
 )
