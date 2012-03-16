@@ -186,7 +186,7 @@ setClass(
     postMargProb = "numeric",
     wAvePredTest = "numeric",
     sssModel = "sssModel",
-    sssFitNBest = "list")
+    nBestFits = "list")
 )
 
 setClass(

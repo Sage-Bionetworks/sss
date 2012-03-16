@@ -51,7 +51,7 @@ setMethod(
     
     myRes <- new("sssLinearResult",
                  sssModel = object,
-                 sssFitNBest = list(p = p,
+                 nBestFits = list(p = p,
                                       score = score,
                                       indices = indices,
                                       pmean = pmean,
@@ -61,9 +61,9 @@ setMethod(
                  standScore = unlist(standScore),
                  postMargProb = sort(pmp, decreasing=T))
     if( length(object@training) == 0L | all(object@training == 1) ){
-      myRes@sssFitNBest$predTest <- list()
+      myRes@nBestFits$predTest <- list()
     } else{
-      myRes@sssFitNBest$predTest <- .sssPredict(myRes, object@data[object@training==0, ])
+      myRes@nBestFits$predTest <- .sssPredict(myRes, object@data[object@training==0, ])
     }
     myRes@wAvePredTest <- predict(myRes)
     
@@ -118,7 +118,7 @@ setMethod(
     
     myRes <- new("sssBinaryResult",
                  sssModel = object,
-                 sssFitNBest = list(p = p,
+                 nBestFits = list(p = p,
                                       score = score,
                                       indices = indices,
                                       pmode = pmode,
@@ -126,9 +126,9 @@ setMethod(
                  standScore = unlist(standScore),
                  postMargProb = sort(pmp, decreasing=T))
     if( length(object@training) == 0L | all(object@training == 1) ){
-      myRes@sssFitNBest$predTest <- list()
+      myRes@nBestFits$predTest <- list()
     } else{
-      myRes@sssFitNBest$predTest <- .sssPredict(myRes, object@data[object@training==0, ])
+      myRes@nBestFits$predTest <- .sssPredict(myRes, object@data[object@training==0, ])
     }
     myRes@wAvePredTest <- predict(myRes)
     
@@ -187,7 +187,7 @@ setMethod(
     
     myRes <- new("sssSurvivalResult",
                  sssModel = object,
-                 sssFitNBest = list(p = p,
+                 nBestFits = list(p = p,
                                       score = score,
                                       indices = indices,
                                       pmeanalpha = pmeanalpha,
@@ -196,9 +196,9 @@ setMethod(
                  standScore = unlist(standScore),
                  postMargProb = sort(pmp, decreasing=T))
     if( length(object@training) == 0L | all(object@training == 1) ){
-      myRes@sssFitNBest$predTest <- list()
+      myRes@nBestFits$predTest <- list()
     } else{
-      myRes@sssFitNBest$predTest <- .sssPredict(myRes, object@data[object@training==0, ])
+      myRes@nBestFits$predTest <- .sssPredict(myRes, object@data[object@training==0, ])
     }
     myRes@wAvePredTest <- predict(myRes)
     

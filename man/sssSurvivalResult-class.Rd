@@ -20,7 +20,7 @@ Objects are returned by default from the \code{"sss"} algorithm
     \item{\code{wAvePredTest}:}{Object of class \code{"numeric"} - weighted average of predictions for each sample passed in the testing set based on \code{standScore} }
     
     \item{\code{sssModel}:}{Object of class \code{"sssSurvivalModel"} - information about sss model fit }
-    \item{\code{sssFitNBest}}{Object of class \code{"list"} - specific information about the n best model fits }
+    \item{\code{nBestFits}}{Object of class \code{"list"} - specific information about the n best model fits }
     
     \item{- - - - \code{p}:}{Object of class \code{"list"} - number of predictors for this model (each list entry represents the i-th model) }
     \item{- - - - \code{score}:}{Object of class \code{"list"} - log posterior probability of this model (each list entry represents the i-th model) }
