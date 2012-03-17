@@ -9,20 +9,28 @@ setMethod(
   definition = function(object, ...){
     
     args <- list(...)
-    if( any(names(args) != "newdata") ){
-      warning("all named arguments other than newdata are ignored")
+    
+    if(any(names(args) == "")){
+      warning("'newdata' is the only optional argument allowed - all others were ignored")
     }
     
-    #####
-    ## DISPATCH DEPENDING ON WHETHER newdata IS PASSED IN ...
-    #####
-    if( any(names(args) == "newdata") ){
+    if( !any(names(args) == "newdata") ){
+      
+      return(list(trainPredictionSummary = object@trainPredictionSummary,
+                  testPredictionSummary = object@testPredictionSummary))
+      
+    } else{
       
       newdata <- args[["newdata"]]
       if( !is.matrix(newdata) ){
         stop("newdata must be a matrix")
       }
-      if( is.null(colnames(object@sssModel@data)) ){
+      
+      if( any(is.na(newdata)) ){
+        stop("Missing values not allowed in newdata matrix")
+      }
+      
+      if( is.null(colnames(object@model@data)) ){
         warning("original data does not have column names - predictions on newdata must have columns in same order as original data for predictions to be accurate.")
       }
       if( is.null(colnames(newdata)) ){
@@ -31,59 +39,44 @@ setMethod(
       
       myPred <- .sssPredict(object, newdata)
       
-    } else{
-      
-      ## IF EXTERNAL USER CALLS PREDICT, JUST PULL FROM THE RESULT OBJECT
-      if( exists(deparse(substitute(object@wAvePredTest))) ){
-        return(object@wAvePredTest)
+      ## RETURN THE WEIGHTED AVERAGE OF THE PREDICTIONS
+      if( length(myPred) != 0L ){
+        testPredictionSummary <- as.numeric(sapply(myPred, as.numeric) %*% matrix(object@standScore))
+        return(testPredictionSummary)
       } else{
-        
-        ## OTHERWISE INTERNAL WE CHECK TO SEE IF THERE IS A TEST SET HELD ASIDE
-        if( length(object@sssModel@training) == 0L ){
-          warning("training argument not passed - no testing set to make predictions on")
-          return(numeric())
-        }
-        if( all(object@sssModel@training == 1) ){
-          warning("all values of training are 1 - not testing set to make predictions on")
-          return(numeric())
-        }
-        
-        ## RUN PREDICTIONS ON THE TEST SET
-        #testX <- object@sssModel@data[object@sssModel@training==0, ]
-        #myPred <- .sssPredict(object, testX)
-        
-        ## THIS SHOULD ALWAYS BE POPULATED IN THIS SCENARIO
-        myPred <- object@nBestFits$predTest
+        return(numeric())
       }
-            
-    }
-    
-    ## RETURN THE WEIGHTED AVERAGE OF THE PREDICTIONS
-    if( length(myPred) != 0L ){
-      wAvePredTest <- as.numeric(sapply(myPred, as.numeric) %*% matrix(object@standScore))
-      return(wAvePredTest)
-    } else{
-      return(numeric())
+      
     }
     
   }
 )
 
+setMethod(
+  f = ".sssPredict",
+  signature = c("sssResult", "matrix"),
+  definition = function(object, newdata){
+    switch(class(object@model),
+           sssBinaryModel = .sssBinaryPredict(object, newdata),
+           sssLinearModel = .sssLinearPredict(object, newdata),
+           sssSurvivalModel = .sssSurvivalPredict(object, newdata))
+  }
+)
 
 #####
 ## LINEAR MODELS
 #####
 setMethod(
-  f = ".sssPredict",
-  signature = c("sssLinearResult", "matrix"),
+  f = ".sssLinearPredict",
+  signature = c("sssResult", "matrix"),
   definition = function(object, newdata){
     
-    thesePreds <- colnames(object@sssModel@data)
+    thesePreds <- colnames(object@model@data)
     
     standX <- apply(newdata, 2, function(x){
       (x-mean(x))/sd(x)
     })
-    trY <- object@sssModel@response[object@sssModel@training==1]
+    trY <- object@model@response[object@model@training==1]
     meanY <- mean(trY)
     sdY <- sd(trY)
     
@@ -119,11 +112,11 @@ setMethod(
 ## BINARY MODELS
 #####
 setMethod(
-  f = ".sssPredict",
-  signature = c("sssBinaryResult", "matrix"),
+  f = ".sssBinaryPredict",
+  signature = c("sssResult", "matrix"),
   definition = function(object, newdata){
     
-    thesePreds <- colnames(object@sssModel@data)
+    thesePreds <- colnames(object@model@data)
     
     standX <- apply(newdata, 2, function(x){
       (x-mean(x))/sd(x)
@@ -166,11 +159,11 @@ setMethod(
 ## SURVIVAL MODELS
 #####
 setMethod(
-  f = ".sssPredict",
-  signature = c("sssSurvivalResult", "matrix"),
+  f = ".sssSurvivalPredict",
+  signature = c("sssResult", "matrix"),
   definition = function(object, newdata){
     
-    thesePreds <- colnames(object@sssModel@data)
+    thesePreds <- colnames(object@model@data)
     
     standX <- apply(newdata, 2, function(x){
       (x-mean(x))/sd(x)

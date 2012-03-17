@@ -1,5 +1,6 @@
 ## IMPORT METHODS
 importFrom(stats, predict)
+importFrom(survival, Surv)
 
 ## EXPORT MAIN sss FUNCTION
 exportMethods(
@@ -13,9 +14,6 @@ exportClasses(
   sssLinearModel,
   sssBinaryModel,
   sssSurvivalModel,
-  sssResult,
-  sssLinearResult,
-  sssBinaryResult,
-  sssSurvivalResult
+  sssResult
 )
 

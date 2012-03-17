@@ -173,46 +173,19 @@ setValidity(
 
 
 #####
-## MODEL RESULT CLASSES
+## MODEL RESULT CLASS
 #####
-
-## VIRTUAL CLASS THAT WILL BE EXTENDED BY EACH MODEL TYPE
 setClass(
   Class = "sssResult",
   
   representation = representation(
-    "VIRTUAL",
     standScore = "numeric",
     postMargProb = "numeric",
-    wAvePredTest = "numeric",
-    sssModel = "sssModel",
+    trainPredictionSummary = "numeric",
+    testPredictionSummary = "numeric",
+    model = "sssModel",
     nBestFits = "list")
 )
-
-setClass(
-  Class = "sssLinearResult",
-  contains = "sssResult",
-  
-  representation = representation(
-    sssModel = "sssLinearModel")
-)
-
-setClass(
-  Class = "sssBinaryResult",
-  contains = "sssResult",
-  
-  representation = representation(
-    sssModel = "sssBinaryModel")
-)
-
-setClass(
-  Class = "sssSurvivalResult",
-  contains = "sssResult",
-  
-  representation = representation(
-    sssModel = "sssSurvivalModel")
-)
-
 
 
 #####
@@ -224,12 +197,12 @@ setMethod(
   f = "show",
   signature = "sssResult",
   definition = function(object){
-    cat('\nType of model fit: "', class(object@sssModel), '"\n\n', sep="")
-    cat("Call: ", deparse(object@sssModel@call), "\n", sep="")
-    cat("Number of features searched : ", ncol(object@sssModel@data), "\n", sep="")
-    cat("Number of training samples  : ", sum(object@sssModel@training==1), "\n", sep="")
-    if( any(object@sssModel@training==0) ){
-      cat("Number of testing samples   : ", sum(object@sssModel@training==0), "\n\n", sep="")
+    cat('\nType of model fit: "', class(object@model), '"\n\n', sep="")
+    cat("Call: ", deparse(object@model@call), "\n", sep="")
+    cat("Number of features searched : ", ncol(object@model@data), "\n", sep="")
+    cat("Number of training samples  : ", sum(object@model@training==1), "\n", sep="")
+    if( any(object@model@training==0) ){
+      cat("Number of testing samples   : ", sum(object@model@training==0), "\n\n", sep="")
       cat("To access the predictions on the held-out testing dataset, call:\n")
       cat("  predict(object)\n", sep="")
       

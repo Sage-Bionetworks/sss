@@ -45,14 +45,14 @@
 
 \section{Value}{
   \describe{
-    Return value is an extension of class \code{sssResult} conditional on the type of model being fit (binary, linear, or survival).
+    Return value is of class \code{sssResult}.
   }
 }
 
 \seealso{
   \describe{
     \item{model classes}{ \code{sssModel}, \code{sssBinaryModel}, \code{sssLinearModel}, \code{sssSurvivalModel} }
-    \item{result classes}{ \code{sssResult}, \code{sssBinaryResult}, \code{sssLinearResult}, \code{sssSurvivalResult} }
+    \item{result classes}{ \code{sssResult} }
     \item{setup class}{ \code{sssSetup} }
   }
 }

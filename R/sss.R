@@ -11,6 +11,14 @@ setMethod(
     y <- eval(Call$formula[[2]])
     x <- as.matrix(eval(Call$formula[[3]]))
     
+    if( any(is.na(x)) ){
+      stop("Missing values not allowed in x data matrix")
+    }
+    
+    if( is.null(colnames(x)) ){
+      warning("original data does not have column names - arbitrary names will be assigned, but limit the extendability of predictions in new data matrices")
+      colnames(x) <- paste("X", 1:ncol(x), sep="")
+    }
     
     args <- list(...)
 
@@ -96,7 +104,7 @@ setMethod(
     .sssPlatform(setupLoc)
     
     ## NOW THAT SSS HAS BEEN CALLED, RETURN SUMMARY OF MODEL RUN
-    outSum <- .readSummary(object)
+    outSum <- .readRes(object)
     return(outSum)
   }
 )

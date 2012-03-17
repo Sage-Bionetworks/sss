@@ -1,6 +1,48 @@
 ## METHOD TO READ IN SUMMARY OUTPUT FROM SSS FOR DIFFERENT MODEL TYPES
 #####
-
+setMethod(
+  f = ".readRes",
+  signature = "sssModel",
+  definition = function(object){
+    
+    nBestFits <- .readSummary(object)
+    
+    ## CREATE MORE MEANINGFUL OUTPUT METRICS
+    pm <- lapply(nBestFits$score, function(x){
+      exp(x-max(unlist(nBestFits$score)))
+    })
+    standScore <- lapply(pm, function(x){
+      x / sum(unlist(pm))
+    })
+    pmp <- rep(0, dim(object@data)[2])
+    for(i in 1:length(nBestFits$p)){
+      if(nBestFits$p[[i]]>0){
+        pmp[nBestFits$indices[[i]]] <- pmp[nBestFits$indices[[i]]] + standScore[[i]]
+      }
+    }
+    names(pmp) <- colnames(object@data)
+    
+    myRes <- new("sssResult",
+                 model = object,
+                 nBestFits = nBestFits,
+                 standScore = unlist(standScore),
+                 postMargProb = sort(pmp, decreasing=T))
+    
+    ## FILL IN THE NBEST PREDICTIONS
+    myRes@nBestFits$trainPrediction <- .sssPredict(myRes, object@data[object@training==1, ])
+    myRes@trainPredictionSummary <- as.numeric(sapply(myRes@nBestFits$trainPrediction, as.numeric) %*% matrix(myRes@standScore))
+    if( any(object@training==0) ){
+      myRes@nBestFits$testPrediction <- .sssPredict(myRes, object@data[object@training==0, ])
+      myRes@testPredictionSummary <- as.numeric(sapply(myRes@nBestFits$testPrediction, as.numeric) %*% matrix(myRes@standScore))
+    } else{
+      myRes@nBestFits$testPrediction <- list()
+      myRes@testPredictionSummary <- numeric()
+    }
+    
+    return(myRes)
+    
+  }
+)
 
 setMethod(
   f = ".readSummary",
@@ -34,40 +76,13 @@ setMethod(
     residsd <- as.list(as.numeric(outSum[, pmax*pmax + 2*pmax + 3]))
     postdf <- as.list(as.numeric(outSum[, pmax*pmax + 2*pmax + 4]))
     
-    ## CREATE MORE MEANINGFUL OUTPUT METRICS
-    pm <- lapply(score, function(x){
-      exp(x-max(unlist(score)))
-    })
-    standScore <- lapply(pm, function(x){
-      x / sum(unlist(pm))
-    })
-    pmp <- rep(0, dim(object@data)[2])
-    for(i in 1:length(p)){
-      if(p[[i]]>0){
-        pmp[indices[[i]]] <- pmp[indices[[i]]] + standScore[[i]]
-      }
-    }
-    names(pmp) <- colnames(object@data)
-    
-    myRes <- new("sssLinearResult",
-                 sssModel = object,
-                 nBestFits = list(p = p,
-                                      score = score,
-                                      indices = indices,
-                                      pmean = pmean,
-                                      pvar = pvar,
-                                      residsd = residsd,
-                                      postdf = postdf),
-                 standScore = unlist(standScore),
-                 postMargProb = sort(pmp, decreasing=T))
-    if( length(object@training) == 0L | all(object@training == 1) ){
-      myRes@nBestFits$predTest <- list()
-    } else{
-      myRes@nBestFits$predTest <- .sssPredict(myRes, object@data[object@training==0, ])
-    }
-    myRes@wAvePredTest <- predict(myRes)
-    
-    return(myRes)
+    return(list(p = p,
+                score = score,
+                indices = indices,
+                pmean = pmean,
+                pvar = pvar,
+                residsd = residsd,
+                postdf = postdf))
   }
 )
 
@@ -101,38 +116,11 @@ setMethod(
       x[!is.na(x)]
     })
     
-    ## CREATE MORE MEANINGFUL OUTPUT METRICS
-    pm <- lapply(score, function(x){
-      exp(x-max(unlist(score)))
-    })
-    standScore <- lapply(pm, function(x){
-      x / sum(unlist(pm))
-    })
-    pmp <- rep(0, dim(object@data)[2])
-    for(i in 1:length(p)){
-      if(length(indices[[i]]) != 0L){
-        pmp[indices[[i]]] <- pmp[indices[[i]]] + standScore[[i]]
-      }
-    }
-    names(pmp) <- colnames(object@data)
-    
-    myRes <- new("sssBinaryResult",
-                 sssModel = object,
-                 nBestFits = list(p = p,
-                                      score = score,
-                                      indices = indices,
-                                      pmode = pmode,
-                                      pvar = pvar),
-                 standScore = unlist(standScore),
-                 postMargProb = sort(pmp, decreasing=T))
-    if( length(object@training) == 0L | all(object@training == 1) ){
-      myRes@nBestFits$predTest <- list()
-    } else{
-      myRes@nBestFits$predTest <- .sssPredict(myRes, object@data[object@training==0, ])
-    }
-    myRes@wAvePredTest <- predict(myRes)
-    
-    return(myRes)
+    return(list(p = p,
+                score = score,
+                indices = indices,
+                pmode = pmode,
+                pvar = pvar))
   }
 )
 
@@ -170,39 +158,12 @@ setMethod(
       x[!is.na(x)]
     })
     
-    ## CREATE MORE MEANINGFUL OUTPUT METRICS
-    pm <- lapply(score, function(x){
-      exp(x-max(unlist(score)))
-    })
-    standScore <- lapply(pm, function(x){
-      x / sum(unlist(pm))
-    })
-    pmp <- rep(0, dim(object@data)[2])
-    for(i in 1:length(p)){
-      if(p[[i]]>0){
-        pmp[indices[[i]]] <- pmp[indices[[i]]] + standScore[[i]]
-      }
-    }
-    names(pmp) <- colnames(object@data)
-    
-    myRes <- new("sssSurvivalResult",
-                 sssModel = object,
-                 nBestFits = list(p = p,
-                                      score = score,
-                                      indices = indices,
-                                      pmeanalpha = pmeanalpha,
-                                      pmode = pmode,
-                                      pvar = pvar),
-                 standScore = unlist(standScore),
-                 postMargProb = sort(pmp, decreasing=T))
-    if( length(object@training) == 0L | all(object@training == 1) ){
-      myRes@nBestFits$predTest <- list()
-    } else{
-      myRes@nBestFits$predTest <- .sssPredict(myRes, object@data[object@training==0, ])
-    }
-    myRes@wAvePredTest <- predict(myRes)
-    
-    return(myRes)
+    return(list(p = p,
+                score = score,
+                indices = indices,
+                pmeanalpha = pmeanalpha,
+                pmode = pmode,
+                pvar = pvar))
   }
 )
 

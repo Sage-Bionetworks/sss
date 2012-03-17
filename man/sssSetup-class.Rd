@@ -45,7 +45,7 @@ http://www.stat.osu.edu/~hans/sss/readme.serial.html
 \seealso{
   \describe{
     \item{model classes}{ \code{sssModel}, \code{sssBinaryModel}, \code{sssLinearModel}, \code{sssSurvivalModel} }
-    \item{result classes}{ \code{sssResult}, \code{sssBinaryResult}, \code{sssLinearResult}, \code{sssSurvivalResult} }
+    \item{result classes}{ \code{sssResult} }
     \item{methods}{ \code{sss} }
   }
 }

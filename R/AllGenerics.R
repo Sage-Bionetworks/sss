@@ -98,6 +98,13 @@ setGeneric(
 )
 
 setGeneric(
+  name = ".readRes",
+  def = function(object){
+    standardGeneric(".readRes")
+  }
+)
+
+setGeneric(
   name = ".readSummary",
   def = function(object){
     standardGeneric(".readSummary")
@@ -112,3 +119,21 @@ setGeneric(
   }
 )
 
+setGeneric(
+  name = ".sssBinaryPredict",
+  def = function(object, newdata){
+    standardGeneric(".sssBinaryPredict")
+  }
+)
+setGeneric(
+  name = ".sssLinearPredict",
+  def = function(object, newdata){
+    standardGeneric(".sssLinearPredict")
+  }
+)
+setGeneric(
+  name = ".sssSurvivalPredict",
+  def = function(object, newdata){
+    standardGeneric(".sssSurvivalPredict")
+  }
+)
