@@ -4,3 +4,63 @@ AUTHOR: BRIAN M. BOT
 
 ATTRIBUTION: Hans C, Dobra A, and West M. Shotgun Stochastic Search for "Large p" Regression. Journal of the American Statistical Association 2007.
 
+Wang, Q. for the source code
+
+QUICK VIGNETTE
+
+CODE BELOW ###################
+
+############## INSTALL SSS FROM GITHUB
+# Either download from the Github web interface (link is upper right corner of the "sss" repository)
+# Install Hadley Wickham's {devtools} package from CRAN and...
+
+require(devtools)
+install_github("sss", "Sage-Bionetworks")
+################################
+
+############## BUILD AN SSS MODEL
+require(Biobase)                # Both of these packages available via Bioconductor
+require(breastCancerTRANSBIG)   # e.g. source(bioconductor.org/biocLite.R), biocLite("Biobase")
+
+data(transbig)
+expressData <- exprs(transbig)
+pheno <- phenoData(transbig)
+
+## CREATE TRAINING AND VALIDATION COHORTS
+set.seed(031512)
+randVec <- rbinom(dim(transbig)[2], size = 1, prob = 0.5)
+trainExpress <- expressData[ , randVec == 0]
+validExpress <- expressData[ , randVec == 1]
+trainScore <- as.numeric(pheno@data$er[randVec == 0])
+validScore <- as.numeric(pheno@data$er[randVec == 1])
+
+## BINARY MODEL OF 'ER Status' USING SSS
+sssERFit <- sss(trainScore ~ t(trainExpress))
+
+# Type of model fit: "sssBinaryModel"
+#
+# Call: sss(formula = trainScore ~ t(trainExpress))
+# Number of features searched : 22283
+# Number of training samples  : 85
+# To test this predictive model against a validation set, pass a new feature matrix to:
+#  predict(object, newdata=newFeatureMatrix)
+
+# ----------------------
+# Contains slots (class)
+# ----------------------
+#  sssModel (sssBinaryModel)
+#  standScore (numeric)
+#  postMargProb (numeric)
+#  wAvePredTest (numeric)
+#  sssFitNBest (list)
+#      p
+#      score
+#      indices
+#      pmode
+#      pvar
+#      predTest
+
+# PREDICT ON VALIDATION COHORT
+validScoreHat <- predict(sssERFit, newdata = t(validExpress))
+
+
