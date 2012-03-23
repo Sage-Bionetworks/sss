@@ -6,6 +6,9 @@ ATTRIBUTION: Hans C, Dobra A, and West M. Shotgun Stochastic Search for "Large p
 
 Wang, Q. for the source code
 
+This current version uses pre-compiled binaries. If one's system architecture is not represented by one of these, the package will not build.
+A new version which will allow dynamic compilation is forthcoming.
+
 #######################################################################
 
 # sssVignette.R
