@@ -175,6 +175,7 @@ setMethod(
            mac.binary.leopardx86_64 = .mac64sss(setupLoc),
 #           mac.binary.leopardi386   = .mac32sss(setupLoc), ## DOES THIS EXIST?
            win.binary               = .winsss(setupLoc),
+           win.binaryx64            = .winsss(setupLoc),
            source                   = .source64sss(setupLoc),
 #           sourcex86_64             = .source64sss(setupLoc),
 #           sourcei386               = .source32sss(setupLoc),
@@ -194,7 +195,6 @@ setMethod(
   signature = c("character"),
   definition = function(setupLoc){
     pathToExec <- file.path(path.package("sss"), "exec")
-    #pathToExec <- file.path("/Users/brian/workspace/gitRepos/sss/inst", "exec")
     system(paste(file.path(pathToExec, "modelsearch"), setupLoc, sep=" "))
     system(paste(file.path(pathToExec, "modelsummary"), setupLoc, sep=" "))
   }
@@ -211,7 +211,6 @@ setMethod(
   signature = c("character"),
   definition = function(setupLoc){
     pathToExec <- file.path(path.package("sss"), "exec")
-    #pathToExec <- file.path("/Users/brian/workspace/gitRepos/sss/inst", "exec")
     system(paste(file.path(pathToExec, "modelsearch.exe"), setupLoc, sep=" "))
     system(paste(file.path(pathToExec, "modelsummary.exe"), setupLoc, sep=" "))
   }
@@ -228,7 +227,6 @@ setMethod(
   signature = c("character"),
   definition = function(setupLoc){
     pathToExec <- file.path(path.package("sss"), "exec")
-    #pathToExec <- file.path("/Users/brian/workspace/gitRepos/sss/inst", "exec")
     system(paste(file.path(pathToExec, "modelsearch64"), setupLoc, sep=" "))
     system(paste(file.path(pathToExec, "modelsummary64"), setupLoc, sep=" "))
   }
@@ -245,7 +243,6 @@ setMethod(
   signature = c("character"),
   definition = function(setupLoc){
     pathToExec <- file.path(path.package("sss"), "exec")
-    #pathToExec <- file.path("/Users/brian/workspace/gitRepos/sss/inst", "exec")
     system(paste(file.path(pathToExec, "modelsearch32"), setupLoc, sep=" "))
     system(paste(file.path(pathToExec, "modelsummary32"), setupLoc, sep=" "))
   }
